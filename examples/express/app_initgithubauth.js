@@ -1,3 +1,11 @@
+/**
+ * @file init github authentication with passport.js
+ *
+ * - FIXME this should match some kind of standard if possible
+ *   - what about 'connect middleware'
+ *   - could that be that
+ */
+
 
 exports.init	= function(app){
 
@@ -58,6 +66,4 @@ exports.init	= function(app){
 
 	// handle multipart file uploads
 	app.use('/auth', require('./routes/auth'));
-
-		
 }

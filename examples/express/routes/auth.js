@@ -2,7 +2,7 @@
  * @file express router on top of passport.js user.
  */
 
-
+var router	= require('express').Router()
 module.exports	= router;
 
 var passport            = require('passport');

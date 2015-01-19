@@ -1,5 +1,11 @@
 ### TODO
 * put ```/githubAPI``` in ```/src```
-* put ```examples/node.js``` it contains the express examples
-  * not sure it is possible
-* put ```examples/browser``` it contains an examples in browser
+* put the whole express examples in ```examples/express``` and run it there
+* there is a weird hardcoded protection for me
+  - how to support it without clogging the library code
+  - what about an event to check ?
+
+--
+
+* how to load the githubAPI.js from the browser
+* 
