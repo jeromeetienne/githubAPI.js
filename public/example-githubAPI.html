@@ -1,0 +1,124 @@
+<link rel='stylesheet' href='/stylesheets/style.css'></link>
+<body>
+
+	<span>
+		<a href='/auth/logout?backUrl=/'>logout</a>
+	</span>
+	<span>
+		<a href='/auth/login?backUrl=/'>login</a>
+	</span>
+	<span id='username'></span>
+<hr/>
+<h2>links</h2>
+<ul>
+	<li>
+		<a href='/useGithubAPI/getReadme'>getReadme</a>
+		- get readme for this repo
+	</li>
+	<hr/>
+	<li>
+		<a href='/useGithubAPI/createFile'>createFile</a>
+		- create a file at the root of the repository.
+		The file has a date in the filename to ensure it isnt already used.
+	</li>
+	<li>
+		<a href='/useGithubAPI/updateFile'>updateFile</a>
+		- update a file '/prout1.md'
+	</li>
+	<li>
+		<a href='/useGithubAPI/deleteFile'>deleteFile</a>
+		- delete a file '/prout1.md'
+	</li>
+	<hr/>
+	<li>
+		<a href='/useGithubAPI/createOrUpdateFile'>createOrUpdateFile</a>
+		- create or update a file '/prout1.md'
+	</li>
+	<li>
+		<a href='/useGithubAPI/filesList'>filesList</a>
+		- get a filesList from the whole repository
+	</li>
+	<li>
+		<a href='/useGithubAPI/repos'>repos</a>
+		- get all repositories for this user
+	</li>
+	<hr/>
+	<li>
+		<a href='/useGithubAPI/deleteRecursive'>deleteRecursive</a>
+		- delete recursively examples/
+	</li>
+	<hr/>
+	<li>
+		<a href='/useGithubAPI/createFork'>createFork</a>
+		- create a fork mrdoob/three.js
+	</li>
+	<li>
+		<a href='/useGithubAPI/deleteRepo'>deleteRepo</a>
+		- create our repo three.js
+	</li>
+	<hr/>
+	<li>
+		<a href='/api/forkProject?forkOwner=jeromeetienne&forkRepo=threex.basiclighting'>forkProject</a>
+		- fork a project threex.basiclighting
+	</li>
+	<li>
+		<a href='/api/deleteProject?repoName=threex.basiclighting'>deleteProject</a>
+		- delete a project threex.basiclighting
+	</li>
+</ul>
+<script src='/js/githubAPI/github.main.js'></script>
+<script src='/js/githubAPI/github.extras.js'></script>
+<script src='/js/githubAPI/github.contents.js'></script>
+<script src='/js/githubAPI/github.fork.js'></script>
+<script src='/js/githubAPI/github.repos.js'></script>
+<script src='/js/githubAPI/github.request.js'></script>
+
+<script>
+	var getUserInfo	= function(onLoad){
+		var request	= new XMLHttpRequest();
+		request.onload	= function() {
+			var content	= request.responseText
+			var json	= JSON.parse(content)
+			onLoad(json)
+		};
+		request.open('get', '/auth/user', true);
+		request.send();	
+	}
+
+	getUserInfo(function(user){
+		console.log('user', user)
+		var isAuthenticated	= user.profile !== undefined ? true : false
+		if( isAuthenticated ){
+			document.querySelector('#username').innerText	= 'Hello '+user.profile.username+'!'
+			console.assert(user.profile.username === 'supereditor')
+		}else{
+			document.querySelector('#username').innerText	= 'Not logged in'
+		}
+		if( isAuthenticated === false )	return
+
+		// doAuthCall(user)
+
+		var github	= new Github(user.accessToken, user.profile)
+
+		// github.get('/user/repos', function(json){
+		// 	console.log('raw', json)
+		// })
+
+		// var repoName	= 'threex.project.sampleproject'
+		// github.filesList(repoName, '', function(json){
+		// 	console.log('raw', json)
+		// })
+
+
+		var repoName	= 'threex.project.sampleproject'
+		var path	= 'prout1.md'
+		var commit	= 'a commit update message'
+		var content	= 'a dummy file content '+Date()
+		github.createOrUpdateFile(repoName, path, commit, content, function(json){
+			console.log('raw', json)
+		})
+	})
+</script>
+
+
+</body>

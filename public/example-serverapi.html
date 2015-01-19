@@ -1,0 +1,226 @@
+<link rel='stylesheet' href='/stylesheets/style.css'></link>
+<script src='/js/githubAPI/github.main.js'></script>
+<script src='/js/githubAPI/github.extras.js'></script>
+<script src='/js/githubAPI/github.contents.js'></script>
+<script src='/js/githubAPI/github.fork.js'></script>
+<script src='/js/githubAPI/github.repos.js'></script>
+<script src='/js/githubAPI/github.request.js'></script>
+<body>
+	<span>
+		<a href='/auth/logout?backUrl=/example-serverapi.html'>logout</a>
+	</span>
+	<span>
+		<a href='/auth/login?backUrl=/example-serverapi.html'>login</a>
+	</span>
+	<span id='username'></span>
+<hr/>
+
+<h2>links</h2>
+
+<ul>
+	<li>
+		<a href='https://github.com/supereditor/threex.project.sampleproject'>on github</a>
+	</li>
+	<li>
+		<a href='/api/forkRepository?forkOwner=jeromeetienne&forkRepo=threex.basiclighting'>forkRepository</a>
+		- fork a repository threex.basiclighting
+	</li>
+	<li>
+		<a href='/api/deleteRepository?repoOwner=supereditor&repoName=threex.basiclighting'>deleteRepository</a>
+		- delete a repository threex.basiclighting
+	</li>
+	<li>
+		<a href='javascript:void(0)' onclick='doCreateOrUpdateData()'>createOrUpdateData</a>
+		- createOrUpdateData scripts/playerController.js
+	</li>
+	<li>
+		<a href='javascript:void(0)' onclick='doDeleteFile()'>deleteFile</a>
+		- delete scripts/playerController.js
+	</li>
+</ul>
+<h1>File Upload</h1>
+<style>
+#fileDropZone{
+	text-align	: center;
+	padding		: 1em 0;
+	margin		: 1em 0;
+	border		: 2px dashed #555;
+}
+
+#fileDropZone.draghover{
+	border-color	: #f00;
+	border-style	: solid;
+}
+</style>
+<input type="file" multiple id="myInputFile" style='display:none;'>
+<button id='myUploadButton'>Upload</button>
+<div id="fileDropZone">or drop files here</div>
+
+
+<script>
+	// sanity check
+	var hasFile	= (window.File && window.FileList && window.FileReader) ? true : false
+	console.assert(hasFile === true)
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Comment								//
+	//////////////////////////////////////////////////////////////////////////////////
+
+	// file drag draghover
+	function onFileDropZoneHover(event){
+		event.target.className	= (event.type === "dragover" ? "draghover" : "");
+
+		event.stopPropagation();
+		event.preventDefault();
+	}
+
+	// file selection
+	function onFileDropZoneDrop(event) {
+
+		// cancel event and hover styling
+		onFileDropZoneHover(event);
+
+		// fetch FileList object
+		var files	= event.target.files || event.dataTransfer.files;
+
+		// process all File objects
+		for(var i = 0; i < files.length; i++){
+			var file	= files[i]
+			ParseFile(file);
+		}
+	}
+
+	var fileDropZone	= document.querySelector("#fileDropZone")
+	fileDropZone.addEventListener("dragover"	, onFileDropZoneHover, false);
+	fileDropZone.addEventListener("dragleave"	, onFileDropZoneHover, false);
+	fileDropZone.addEventListener("drop"		, onFileDropZoneDrop, false);
+
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Comment								//
+	//////////////////////////////////////////////////////////////////////////////////
+
+	// file selection
+	function onInputFileChange(event) {
+		var files	= event.target.files
+		for(var i = 0; i < files.length; i++){
+			var file	= files[i]
+			ParseFile(file);
+		}
+	}
+	var myInputFile	= document.querySelector("#myInputFile")
+	myInputFile.addEventListener("change"	, onInputFileChange, false);
+
+	var button	= document.querySelector('#myUploadButton')
+	button.addEventListener( 'click', function( event ){
+		var myInputFile	= document.querySelector("#myInputFile")
+		myInputFile.click();
+	}, false );
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Comment								//
+	//////////////////////////////////////////////////////////////////////////////////
+
+	function ParseFile(file){
+		console.log(file.name, file.type, file.size)
+		var reader	= new FileReader();
+		reader.onload	= function(event) {
+			var content	= event.target.result 
+			content		= content.split(',', 2)[1]
+			content		= window.atob(content)
+
+			var github	= new Github(user.accessToken, user.profile)
+			var repoName	= 'threex.project.sampleproject'
+			var path	= 'uploads/'+file.name
+			var commit	= 'a upload update message'
+			// var content	= 'a dummy file content '+Date()
+			github.createOrUpdateFile(repoName, path, commit, content, function(json){
+				console.log('uploaded', path, content.length, 'bytes and', file.type)
+			})
+		}
+		console.log('reader', reader)
+		reader.readAsDataURL(file);	
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Comment								//
+	//////////////////////////////////////////////////////////////////////////////////
+	var requestRead	= function(method, callUrl, onLoad){
+		// log
+		console.log('SERVER', method, callUrl)
+		// start the request
+		var request	= new XMLHttpRequest();
+		request.onload	= function() {
+			// parse the response
+			var content	= request.responseText
+			var json	= JSON.parse(content)
+			// log
+			console.log('Response', json)
+			// notify called
+			onLoad(json)
+		};
+		request.open(method, callUrl, true);
+		request.send();	
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Comment								//
+	//////////////////////////////////////////////////////////////////////////////////
+
+	requestRead('GET', '/auth/user', function(user){
+		var isAuthenticated	= user.profile !== undefined ? true : false
+		if( isAuthenticated ){
+			document.querySelector('#username').innerText	= 'Hello '+user.profile.username+'!'
+			console.assert(user.profile.username === 'supereditor')
+			window.user	= user
+		}else{
+			document.querySelector('#username').innerText	= 'Not logged in'
+		}
+	})
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Comment								//
+	//////////////////////////////////////////////////////////////////////////////////
+	function doCreateOrUpdateData(){
+
+		var repoName	= 'threex.project.sampleproject'
+		var path	= 'scripts/playerController.js'
+		var content	= 'a dummy file content '+Date()
+
+		// build the callUrl
+		var callUrl	=  '/api/createOrUpdateData'
+		callUrl		+= '?repoName='	+ encodeURIComponent(repoName)
+		callUrl		+= '&path='	+ encodeURIComponent(path)
+		callUrl		+= '&content='	+ encodeURIComponent(content)
+
+		requestRead('GET', callUrl, function(json){
+			if( json.message ){
+				console.error('FAILLURE: ', json.message)
+			}else{
+				console.log('Success', json)
+			}
+		})	
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Comment								//
+	//////////////////////////////////////////////////////////////////////////////////
+	function doDeleteFile(){
+
+		var repoName	= 'threex.project.sampleproject'
+		var path	= 'scripts/playerController.js'
+
+		// build the callUrl
+		var callUrl	=  '/api/deleteFile'
+		callUrl		+= '?repoName='	+ encodeURIComponent(repoName)
+		callUrl		+= '&path='	+ encodeURIComponent(path)
+
+		requestRead('GET', callUrl, function(json){
+			if( json.message ){
+				console.error('FAILLURE: ', json.message)
+			}else{
+				console.log('Success', json)
+			}
+		})	
+	}
+</script>
