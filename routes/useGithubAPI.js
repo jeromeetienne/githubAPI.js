@@ -1,3 +1,7 @@
+/**
+ * @file sample usage of githubAPI.js on top 
+ */
+
 var router	= require('express').Router();
 module.exports	= router;
 
@@ -126,4 +130,3 @@ router.get('/deleteRepo', function(request, response) {
 		response.json(data)
 	})
 });
-

@@ -1,3 +1,8 @@
+/**
+ * @file it contains a REST api on top of githubAPI.js. 
+ * it is for express.
+ */
+
 var router	= require('express').Router()
 module.exports	= router
 
@@ -159,4 +164,3 @@ router.get('/deleteFile', function(request, response) {
 		response.json(data)
 	})
 });
-

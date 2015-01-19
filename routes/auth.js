@@ -1,4 +1,8 @@
-var router	= require('express').Router();
+/**
+ * @file express router on top of passport.js user.
+ */
+
+
 module.exports	= router;
 
 var passport            = require('passport');
