@@ -5,12 +5,3 @@ server:
 
 serverProduction:
 	./bin/www
-
-.PHONY: build
-build:
-	cat githubAPI/github.main.js		>  build/githubAPI.js
-	cat githubAPI/github.repos.js		>> build/githubAPI.js
-	cat githubAPI/github.extras.js		>> build/githubAPI.js
-	cat githubAPI/github.request.js		>> build/githubAPI.js
-	cat githubAPI/github.contents.js	>> build/githubAPI.js
-	cat githubAPI/github.fork.js		>> build/githubAPI.js

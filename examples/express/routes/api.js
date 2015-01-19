@@ -6,7 +6,8 @@
 var router	= require('express').Router()
 module.exports	= router
 
-var Github	= require('../githubAPI/index.js')
+// require githubAPI.js
+var Github	= require('../../../src/index.js')
 
 //////////////////////////////////////////////////////////////////////////////////
 //		Comment								//
