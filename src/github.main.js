@@ -1,5 +1,7 @@
 /**
  * Build the tool itself
+ *
+ * @class
  * 
  * @param {String} accessToken - the access token you got from authentication
  * @param {Object} profile     - the profile of your user from github

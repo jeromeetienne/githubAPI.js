@@ -1,5 +1,7 @@
 /**
  * Build the tool itself
+ *
+ * @class
  * 
  * @param {String} accessToken - the access token you got from authentication
  * @param {Object} profile     - the profile of your user from github
@@ -48,7 +50,8 @@ Github.Flow	= function(){
 			}
 		}
 	}
-};//////////////////////////////////////////////////////////////////////////////////
+};
+//////////////////////////////////////////////////////////////////////////////////
 //		Header for plugins
 //////////////////////////////////////////////////////////////////////////////////
 var Github	= Github	|| require('./github.main.js')
@@ -470,22 +473,10 @@ Github.prototype._requestWrite = function(method, path, dataToPost, onLoad){
 	// end the request
 	request.end();
 }
-/**
- * a quite wonderful function
- * @param {object} - privacy gown
- * @param {object} - security
- * @returns {survival}
-*/
-function protection(cloak, dagger){}
-
 //////////////////////////////////////////////////////////////////////////////////
 //		Header for plugins
 //////////////////////////////////////////////////////////////////////////////////
 
-/**
- * 
- * @class
- */
 var Github	= Github	|| require('./github.main.js')
 
 //////////////////////////////////////////////////////////////////////////////////

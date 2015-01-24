@@ -3,6 +3,7 @@
 **Classes**
 
 * [class: Github](#Github)
+  * [new Github(accessToken, profile)](#new_Github)
   * [Github.userBlackList](#Github.userBlackList)
   * [Github.Flow()](#Github.Flow)
   * [github.getRepos(onLoad)](#Github#getRepos)
@@ -24,38 +25,13 @@
   * [github.deleteFile()](#Github#deleteFile)
   * [github.createFork()](#Github#createFork)
   * [github.checkUserBlacklist(userName)](#Github#checkUserBlacklist)
-
-**Functions**
-
-* [Github(accessToken, profile)](#Github)
-  * [Github.userBlackList](#Github.userBlackList)
-  * [Github.Flow()](#Github.Flow)
-  * [github.getRepos(onLoad)](#Github#getRepos)
-  * [github.createRepo()](#Github#createRepo)
-  * [github.deleteRepo()](#Github#deleteRepo)
-  * [github.createOrUpdateFile()](#Github#createOrUpdateFile)
-  * [github.filesList(repoName, rootPath, onLoad)](#Github#filesList)
-  * [github.get(path, onLoad)](#Github#get)
-  * [github.post(path, onLoad)](#Github#post)
-  * [github.put(path, onLoad)](#Github#put)
-  * [github.delete(path, onLoad)](#Github#delete)
-  * [github._requestRead(method, path, onLoad)](#Github#_requestRead)
-  * [github._requestWrite(method, path, dataToPost, onLoad)](#Github#_requestWrite)
-  * [github.getContent(repoName, path, onLoad)](#Github#getContent)
-  * [github.getContent(repoName, path, onLoad)](#Github#getContent)
-  * [github.getReadme(repoName, onLoad)](#Github#getReadme)
-  * [github.createFile(repoName, path, message, content, onLoad)](#Github#createFile)
-  * [github.updateFile()](#Github#updateFile)
-  * [github.deleteFile()](#Github#deleteFile)
-  * [github.createFork()](#Github#createFork)
-  * [github.checkUserBlacklist(userName)](#Github#checkUserBlacklist)
-* [protection(cloak, dagger)](#protection)
  
 <a name="Github"></a>
 #class: Github
 **Members**
 
 * [class: Github](#Github)
+  * [new Github(accessToken, profile)](#new_Github)
   * [Github.userBlackList](#Github.userBlackList)
   * [Github.Flow()](#Github.Flow)
   * [github.getRepos(onLoad)](#Github#getRepos)
@@ -77,6 +53,15 @@
   * [github.deleteFile()](#Github#deleteFile)
   * [github.createFork()](#Github#createFork)
   * [github.checkUserBlacklist(userName)](#Github#checkUserBlacklist)
+
+<a name="new_Github"></a>
+##new Github(accessToken, profile)
+Build the tool itself
+
+**Params**
+
+- accessToken `String` - the access token you got from authentication  
+- profile `Object` - the profile of your user from github  
 
 <a name="Github.userBlackList"></a>
 ##Github.userBlackList
@@ -239,22 +224,3 @@ test if the username is in the user blacklist
 
 - userName `String` - the username  
 
-<a name="Github"></a>
-#Github(accessToken, profile)
-Build the tool itself
-
-**Params**
-
-- accessToken `String` - the access token you got from authentication  
-- profile `Object` - the profile of your user from github  
-
-<a name="protection"></a>
-#protection(cloak, dagger)
-a quite wonderful function
-
-**Params**
-
-- cloak `object` - privacy gown  
-- dagger `object` - security  
-
-**Returns**: `survival`  
