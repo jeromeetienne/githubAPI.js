@@ -4,6 +4,17 @@ githubApi.js
 Access github api in javascript from node.js or browser.
 
 
+
+# Motivation
+This library is working well in my experience,
+They are other wrapper for github api, i dont claim mine is better :)
+The other libraries seemed good when i looked. be sure to check them out.
+
+I had to implement my own github api wrapper.
+It was a core part of a project. 
+So i had to really understand it, i could not rely
+on a 3rd party library. This is why i reimplemented it.
+
 ## Install it
 
 To install for node.js, just do
@@ -32,15 +43,6 @@ cd examples/express
 make server
 ```
 
-# Motivation
-This library is working well in my experience,
-They are other wrapper for github api, i dont claim mine is better :)
-The other libraries seemed good when i looked. be sure to check them out.
-
-I had to implement my own github api wrapper.
-It was a core part of a project. 
-So i had to really understand it, i could not rely
-on a 3rd party library. This is why i reimplemented it.
 
 # TODO - Possible Improvements
 * Use conditional requests for github api calls and thus reduce rate limits

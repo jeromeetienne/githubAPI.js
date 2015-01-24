@@ -9,6 +9,21 @@ module.exports	= router
 // require githubAPI.js
 var Github	= require('../../../src/index.js')
 
+
+router.get('/getReadme', function(request, response) {
+	var github	= new Github(request.user.accessToken, request.user.profile)
+
+	var repoName	= 'threex.project.sampleproject'
+
+	github.getReadme(repoName, function(data){
+		var content	= new Buffer(data.content, 'base64').toString()
+		response.contentType('text/plain');
+		response.send(content)
+	})
+});
+
+
+
 //////////////////////////////////////////////////////////////////////////////////
 //		Comment								//
 //////////////////////////////////////////////////////////////////////////////////
@@ -18,8 +33,6 @@ router.get('/forkRepository', function(request, response) {
 		response.status(403).send('Forbidden. You MUST be authenticated!\n');
 		return
 	}
-	// sanity check
-	console.assert(request.user.profile.username === 'supereditor', 'Only supereditor github user!')
 
 	// get parameters
 	var forkOwner	= request.query.forkOwner

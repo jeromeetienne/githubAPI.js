@@ -69,7 +69,18 @@ Github.prototype.delete = function(path, dataToPost, onLoad){
  */
 Github.prototype._requestRead = function(method, path, onLoad){
 	var github	= this
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		check userBlacklist
+	//////////////////////////////////////////////////////////////////////////////////
+
 	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
+
+	if( this.userBlacklistContains(this.profile.username) ){
+		console.assert(false, 'current user is in userBlacklist.' + this.profile.name);
+		throw 'USER IN githubapi.js BLACKLIST'
+	}
+
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Comment								//
@@ -145,11 +156,21 @@ Github.prototype._requestRead = function(method, path, onLoad){
 Github.prototype._requestWrite = function(method, path, dataToPost, onLoad){
 	var github	= this
 
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
+	// handle arguments poly morphing
 	if( typeof(dataToPost) !== 'string'){
 		dataToPost	= JSON.stringify(dataToPost)
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////
+	//		check userBlacklist
+	//////////////////////////////////////////////////////////////////////////////////
+
+	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
+
+	if( this.userBlacklistContains(this.profile.username) ){
+		console.assert(false, 'current user is in userBlacklist.' + this.profile.name);
+		throw 'USER IN githubapi.js BLACKLIST'
+	}
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Comment								//

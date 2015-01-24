@@ -25,6 +25,6 @@ Github.userBlackList   = []
  * test if the username is in the user blacklist
  * @param {String} userName - the username
  */
-Github.prototype.checkUserBlacklist = function(userName){
+Github.prototype.userBlackList = function(userName){
         return  Github.userBlackList.indexOf(userName) !== -1 ? false : true
 }
