@@ -1,0 +1,25 @@
+<body>
+	<a href='/'>Root</a>
+        <h1>User Info</h1>
+	<!-- user info head -->
+	<span>
+		<a href='/github-auth/logout?backUrl=/example-github-auth.html'>logout</a>
+	</span>
+	<span>
+		<a href='/github-auth/login?backUrl=/example-github-auth.html'>login</a>
+	</span>
+	<span id='username'>Not logged in</span>
+<script src='requestUtils.js'></script>
+<script>
+	// get the user information from
+	requestRead('GET', '/github-auth/user', function(user){
+		var isAuthenticated	= user !== null ? true : false
+		if( isAuthenticated ){
+			document.querySelector('#username').innerText	= 'Hello '+user.profile.username+'!'
+			console.assert(user.profile.username === 'supereditor')
+			window.user	= user
+		}else{
+			document.querySelector('#username').innerText	= 'Not logged in'
+		}
+	})
+</script>

@@ -41,7 +41,7 @@ router.get('/error', function(request, response){
 
 router.get('/callback',
 	passport.authenticate('github', {
-		failureRedirect	: '/auth/error'
+		failureRedirect	: '/github-auth/error'
 	}),
 	function(request, response){
 		// honor ?backUrl=

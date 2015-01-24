@@ -1,3 +1,18 @@
+--
+### Examples
+* how to load the githubAPI.js from the browser
+  * it requires servers for the authentication anyway
+* the examples are unclear on how to organize it
+
+
+### Define needs
+* need a demo for auth
+* need a demo for node.js usage
+  - it is in the 
+* need a demo for browser usage
+
+--
+
 ### TODO
 * DONE put ```/githubAPI``` in ```/src```
 * DONE put the whole express examples in ```examples/express``` and run it there
@@ -5,7 +20,7 @@
   * put that in a nother file and add this file in the .gitignore
   * add a .json.sample with only the nice comment
   * add the .json with real key in the .gitignore
-* the back doesnt come back well on github login
+* the back doesnt come back well on github login ?
 
 --
 ### TODO
@@ -20,11 +35,6 @@
 * rename ```routers/api``` in ```routers/githubApiRest.js```
 * rename ```routers/auth.js``` into ```routers/githubAuth.js```
 
---
-### Examples
-* how to load the githubAPI.js from the browser
-  * it requires servers for the authentication anyway
-* the examples are unclear on how to organize it
 
 
 --

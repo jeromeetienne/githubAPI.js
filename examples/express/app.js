@@ -19,7 +19,7 @@ initGithubAuth.init(app)
 
 
 // TODO this example is useless
-app.use('/github-rest-example' , require('./routes/githubapi-rest-example'));
+app.use('/githubapi-rest-example' , require('./routes/githubapi-rest-example'));
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var isAuthenticated = function (request, response, next) {
 	if( request.isAuthenticated() )
 		return next();
-	response.redirect('/auth?backUrl='+request.originalUrl);
+	response.redirect('/github-auth?backUrl='+request.originalUrl);
 }
 app.use('/useGithubAPI', isAuthenticated, require('./routes/useGithubAPI'));
 

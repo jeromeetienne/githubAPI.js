@@ -13,10 +13,10 @@
 	<!-- user info -->
 	<!-- ********************** -->
 	<span>
-		<a href='/auth/logout?backUrl=/'>logout</a>
+		<a href='/github-auth/logout?backUrl=/'>logout</a>
 	</span>
 	<span>
-		<a href='/auth/login?backUrl=/'>login</a>
+		<a href='/github-auth/login?backUrl=/'>login</a>
 	</span>
 	<span id='username'></span>
 <hr/>
@@ -92,13 +92,13 @@
 			var json	= JSON.parse(content)
 			onLoad(json)
 		};
-		request.open('get', '/auth/user', true);
+		request.open('GET', '/github-auth/user', true);
 		request.send();	
 	}
 
 	getUserInfo(function(user){
 		console.log('user', user)
-		var isAuthenticated	= user.profile !== undefined ? true : false
+		var isAuthenticated	= user !== null ? true : false
 		if( isAuthenticated ){
 			document.querySelector('#username').innerText	= 'Hello '+user.profile.username+'!'
 			console.assert(user.profile.username === 'supereditor')

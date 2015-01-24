@@ -52,7 +52,7 @@ exports.init	= function(app){
 // TODO put that options as parameters
 		clientID	: 'ea5914292ffcf9cab776',
 		clientSecret	: 'db108ec2e53a02bda9a7162548b10587986ca9c4',
-		callbackURL	: 'http://127.0.0.1:8000/auth/callback',
+		callbackURL	: 'http://127.0.0.1:8000/github-auth/callback',
 		// scope		: 'gist', 
 		scope		: 'delete_repo, repo', 
 		// scope		: 'repo', 
@@ -70,5 +70,5 @@ exports.init	= function(app){
 	////////////////////////////////////////////////////////////////////////////////     
 
 	// handle multipart file uploads
-	app.use('/auth', require('./routes/auth'));
+	app.use('/github-auth', require('./routes/github-auth'));
 }

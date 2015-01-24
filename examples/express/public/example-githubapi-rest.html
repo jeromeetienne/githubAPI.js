@@ -8,24 +8,18 @@
 	  color: #00B7FF;
 	}
 </style>
-<!-- TODO here include the build instead -->
-<script src='/js/githubAPI/github.main.js'></script>
-<script src='/js/githubAPI/github.extras.js'></script>
-<script src='/js/githubAPI/github.contents.js'></script>
-<script src='/js/githubAPI/github.fork.js'></script>
-<script src='/js/githubAPI/github.repos.js'></script>
-<script src='/js/githubAPI/github.request.js'></script>
+<script src='/build/githubAPI.js'></script>
 <body>
 	<!-- user info head -->
 	<span>
-		<a href='/auth/logout?backUrl=/githubapi-rest-example.html'>logout</a>
+		<a href='/github-auth/logout?backUrl=/example-githubapi-rest.html'>logout</a>
 	</span>
 	<span>
-		<a href='/auth/login?backUrl=/githubapi-rest-example.html'>login</a>
+		<a href='/github-auth/login?backUrl=/example-githubapi-rest.html'>login</a>
 	</span>
 	<span id='username'></span>
 <hr/>
-
+<a href='/'>Root</a>
 <h2>links</h2>
 
 <ul>
@@ -178,8 +172,8 @@
 	//		Comment								//
 	//////////////////////////////////////////////////////////////////////////////////
 
-	requestRead('GET', '/auth/user', function(user){
-		var isAuthenticated	= user.profile !== undefined ? true : false
+	requestRead('GET', '/github-auth/user', function(user){
+		var isAuthenticated	= user !== null ? true : false
 		if( isAuthenticated ){
 			document.querySelector('#username').innerText	= 'Hello '+user.profile.username+'!'
 			console.assert(user.profile.username === 'supereditor')

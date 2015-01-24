@@ -9,7 +9,6 @@ module.exports	= router
 // require githubAPI.js
 var Github	= require('../../../src/index.js')
 
-
 router.get('/getReadme', function(request, response) {
 	var github	= new Github(request.user.accessToken, request.user.profile)
 
@@ -20,9 +19,7 @@ router.get('/getReadme', function(request, response) {
 		response.contentType('text/plain');
 		response.send(content)
 	})
-});
-
-
+})
 
 //////////////////////////////////////////////////////////////////////////////////
 //		Comment								//
