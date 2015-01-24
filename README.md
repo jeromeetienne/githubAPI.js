@@ -3,16 +3,24 @@ githubApi.js
 
 Access github api in javascript from node.js or browser.
 
+Checkout the [githubapi.js api documentation](https://github.com/jeromeetienne/githubAPI.js/blob/master/docs/api.md)
+It is automatically generated from jsdoc.
 
 ## Install it
+
+To install for node.js, just do
 
 ```
 npm install githubapi.js
 ```
 
+To install for browser, just do
+
 ```
 bower install githubapi.js
 ```
+
+or just include ```build/githubAPI.js``` in your projects the way you see fit :)
 
 # Motivation
 this library is working well in my experience,

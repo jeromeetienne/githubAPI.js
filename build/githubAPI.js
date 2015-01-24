@@ -261,21 +261,45 @@ var Github	= Github	|| require('./github.main.js')
 //		Plugin itself
 //////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * get data
+ * 
+ * @param  {String} path	- the api path
+ * @param  {Function} onLoad	- callback called when the result is loaded
+ */
 Github.prototype.get = function(path, onLoad){
 	var github	= this
 	github._requestRead('GET', path, onLoad)
 }
 
+/**
+ * post data
+ * 
+ * @param  {String} path	- the api path
+ * @param  {Function} onLoad	- callback called when the result is loaded
+ */
 Github.prototype.post = function(path, dataToPost, onLoad){
 	var github	= this
 	github._requestWrite('POST', path, dataToPost, onLoad)
 }
 
+/**
+ * put data
+ * 
+ * @param  {String} path	- the api path
+ * @param  {Function} onLoad	- callback called when the result is loaded
+ */
 Github.prototype.put = function(path, dataToPost, onLoad){
 	var github	= this
 	github._requestWrite('PUT', path, dataToPost, onLoad)
 }
 
+/**
+ * delete data
+ * 
+ * @param  {String} path	- the api path
+ * @param  {Function} onLoad	- callback called when the result is loaded
+ */
 Github.prototype.delete = function(path, dataToPost, onLoad){
 	var github	= this
 	github._requestWrite('DELETE', path, dataToPost, onLoad)
@@ -446,14 +470,40 @@ Github.prototype._requestWrite = function(method, path, dataToPost, onLoad){
 	// end the request
 	request.end();
 }
+/**
+ * a quite wonderful function
+ * @param {object} - privacy gown
+ * @param {object} - security
+ * @returns {survival}
+*/
+function protection(cloak, dagger){}
+
 //////////////////////////////////////////////////////////////////////////////////
 //		Header for plugins
 //////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * 
+ * @class
+ */
 var Github	= Github	|| require('./github.main.js')
 
 //////////////////////////////////////////////////////////////////////////////////
 //		Plugin itself
 //////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * get contents - https://developer.github.com/v3/repos/contents/#get-contents
+ *
+ * @param {String} repoName - the repository name
+ * @param {String} path - the path to the content
+ * @param  {function} onLoad - callback called on load
+ */
+Github.prototype.getContent = function(repoName, path, onLoad){
+	var urlGet	= '/repos/'+this.profile.username+'/'+repoName+'/contents/'+path
+	var github	= this
+	github.get(urlGet, onLoad)
+};
 
 /**
  * get contents - https://developer.github.com/v3/repos/contents/#get-contents
@@ -485,16 +535,18 @@ Github.prototype.getReadme = function(repoName, onLoad){
 /**
  * https://developer.github.com/v3/repos/contents/#create-a-file
  * 
- * @param  {[type]} repoName [description]
- * @param  {[type]} path     [description]
- * @param  {[type]} message  [description]
- * @param  {[type]} content  [description]
- * @param  {[type]} onLoad   [description]
- * @return {[type]}          [description]
+ * @param  {type} repoName [description]
+ * @param  {type} path     [description]
+ * @param  {type} message  [description]
+ * @param  {type} content  [description]
+ * @param  {type} onLoad   [description]
+ * @return {type}          [description]
  */
 Github.prototype.createFile = function(repoName, path, message, content, onLoad){
 	// sanity check
 	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
+
+	github.checkUserBlacklist()
 
 	var github	= this
 
@@ -606,4 +658,34 @@ Github.prototype.createFork = function(forkOwner, forkRepoName, onLoad){
 	github._requestWrite('POST', putUrl, dataToPost, function(data){
 		onLoad(data)
 	})
+}
+/**
+ * @fileOverview contains the mechanism to have a hardcoded blacklist
+ * 
+ * - thus when you develop you make sure the library only use the account made for testing
+ * - and thus this avoid catastroph to happen :)
+ */
+
+//////////////////////////////////////////////////////////////////////////////////
+//		Header for plugins
+//////////////////////////////////////////////////////////////////////////////////
+var Github	= Github	|| require('./github.main.js')
+
+//////////////////////////////////////////////////////////////////////////////////
+//                Comments
+//////////////////////////////////////////////////////////////////////////////////        
+
+/**
+ * user blacklist
+ * 
+ * @type {String[]}
+ */
+Github.userBlackList   = []
+
+/**
+ * test if the username is in the user blacklist
+ * @param {String} userName - the username
+ */
+Github.prototype.checkUserBlacklist = function(userName){
+        return  Github.userBlackList.indexOf(userName) !== -1 ? false : true
 }

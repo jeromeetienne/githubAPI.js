@@ -1,11 +1,37 @@
+/**
+ * a quite wonderful function
+ * @param {object} - privacy gown
+ * @param {object} - security
+ * @returns {survival}
+*/
+function protection(cloak, dagger){}
+
 //////////////////////////////////////////////////////////////////////////////////
 //		Header for plugins
 //////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * 
+ * @class
+ */
 var Github	= Github	|| require('./github.main.js')
 
 //////////////////////////////////////////////////////////////////////////////////
 //		Plugin itself
 //////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * get contents - https://developer.github.com/v3/repos/contents/#get-contents
+ *
+ * @param {String} repoName - the repository name
+ * @param {String} path - the path to the content
+ * @param  {function} onLoad - callback called on load
+ */
+Github.prototype.getContent = function(repoName, path, onLoad){
+	var urlGet	= '/repos/'+this.profile.username+'/'+repoName+'/contents/'+path
+	var github	= this
+	github.get(urlGet, onLoad)
+};
 
 /**
  * get contents - https://developer.github.com/v3/repos/contents/#get-contents
@@ -37,16 +63,18 @@ Github.prototype.getReadme = function(repoName, onLoad){
 /**
  * https://developer.github.com/v3/repos/contents/#create-a-file
  * 
- * @param  {[type]} repoName [description]
- * @param  {[type]} path     [description]
- * @param  {[type]} message  [description]
- * @param  {[type]} content  [description]
- * @param  {[type]} onLoad   [description]
- * @return {[type]}          [description]
+ * @param  {type} repoName [description]
+ * @param  {type} path     [description]
+ * @param  {type} message  [description]
+ * @param  {type} content  [description]
+ * @param  {type} onLoad   [description]
+ * @return {type}          [description]
  */
 Github.prototype.createFile = function(repoName, path, message, content, onLoad){
 	// sanity check
 	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
+
+	github.checkUserBlacklist()
 
 	var github	= this
 
