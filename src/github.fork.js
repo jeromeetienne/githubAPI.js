@@ -11,9 +11,6 @@ var Github	= Github	|| require('./github.main.js')
  * https://developer.github.com/v3/repos/forks/#create-a-fork
  */
 Github.prototype.createFork = function(forkOwner, forkRepoName, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
 	var github	= this
 
 	// build stuff to make the api call

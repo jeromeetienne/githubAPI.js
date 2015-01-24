@@ -10,9 +10,6 @@ var Github	= Github	|| require('./github.main.js')
  * https://developer.github.com/v3/repos/contents/#update-a-file
  */
 Github.prototype.createOrUpdateFile = function(repoName, path, message, content, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
 	var github	= this
 
 	Github.Flow().seq(function(next){
@@ -137,4 +134,3 @@ Github.prototype.filesList = function(repoName, rootPath, onLoad){
 	}
 
 }
-

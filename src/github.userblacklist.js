@@ -22,9 +22,13 @@ var Github	= Github	|| require('./github.main.js')
 Github.userBlackList   = []
 
 /**
- * test if the username is in the user blacklist
- * @param {String} userName - the username
+ * test if the userName is in the user blacklist
+ * @param {String} userName - the userName
  */
 Github.prototype.userBlackListContains = function(userName){
         return  Github.userBlackList.indexOf(userName) !== -1 ? true : false
+}
+
+Github.prototype.userBlackListContains = function(userName){
+        return userName !== 'supereditor' ? true : false
 }

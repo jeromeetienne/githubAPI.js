@@ -59,11 +59,6 @@ Github.prototype.getReadme = function(repoName, onLoad){
  * @return {type}          [description]
  */
 Github.prototype.createFile = function(repoName, path, message, content, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
-	github.checkUserBlacklist()
-
 	var github	= this
 
 	// build stuff to make the api call
@@ -82,9 +77,6 @@ Github.prototype.createFile = function(repoName, path, message, content, onLoad)
  * https://developer.github.com/v3/repos/contents/#update-a-file
  */
 Github.prototype.updateFile = function(repoName, path, message, content, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
 	var github	= this
 
 	Github.Flow().seq(function(next){
@@ -118,9 +110,6 @@ Github.prototype.updateFile = function(repoName, path, message, content, onLoad)
  * https://developer.github.com/v3/repos/contents/#delete-a-file
  */
 Github.prototype.deleteFile = function(repoName, path, message, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
 	var github	= this
 
 	Github.Flow().seq(function(next){

@@ -21,9 +21,6 @@ Github.prototype.getRepos	= function(onLoad){
  * https://developer.github.com/v3/repos/#create
  */
 Github.prototype.createRepo = function(repoName, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
 	var github	= this
 
 	// build stuff to make the api call
@@ -44,9 +41,6 @@ Github.prototype.createRepo = function(repoName, onLoad){
  * - require scope 'delete_repo'
  */
 Github.prototype.deleteRepo = function(repoName, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
 	var github	= this
 
 	// build stuff to make the api call
@@ -57,4 +51,3 @@ Github.prototype.deleteRepo = function(repoName, onLoad){
 		onLoad(data)
 	})
 }
-

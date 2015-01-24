@@ -9,8 +9,6 @@
 var Github	= function(accessToken, profile){
 	this.accessToken	= accessToken
 	this.profile		= profile
-
-	console.assert(this.profile.username === 'supereditor', 'username'+this.profile.username)
 }
 
 /**
