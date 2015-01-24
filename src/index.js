@@ -18,9 +18,9 @@ module.exports	= Github;
 //		Load all plugins
 //////////////////////////////////////////////////////////////////////////////////
 
-require('./github.repos.js')
-require('./github.extras.js')
-require('./github.request.js')
 require('./github.contents.js')
+require('./github.extras.js')
 require('./github.fork.js')
-
+require('./github.repos.js')
+require('./github.request.js')
+require('./github.userblacklist.js')

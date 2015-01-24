@@ -76,7 +76,7 @@ Github.prototype._requestRead = function(method, path, onLoad){
 
 	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
 
-	if( this.userBlacklistContains(this.profile.username) ){
+	if( github.userBlackListContains(this.profile.username) ){
 		console.assert(false, 'current user is in userBlacklist.' + this.profile.name);
 		throw 'USER IN githubapi.js BLACKLIST'
 	}
@@ -166,7 +166,7 @@ Github.prototype._requestWrite = function(method, path, dataToPost, onLoad){
 
 	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
 
-	if( this.userBlacklistContains(this.profile.username) ){
+	if( github.userBlackListContains(this.profile.username) ){
 		console.assert(false, 'current user is in userBlacklist.' + this.profile.name);
 		throw 'USER IN githubapi.js BLACKLIST'
 	}

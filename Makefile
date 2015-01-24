@@ -1,10 +1,11 @@
 
 # server which watch the proper directories - supervisor from https://github.com/isaacs/node-supervisor
 server:
-	supervisor -w ./examples/express/app.js,./examples/express/routes/,./examples/express/view/ ./examples/express/bin/www
+	cd examples/express && supervisor -w ../../src, app.js,routes/,view/ ./bin/www
 
 serverProduction:
-	./examples/express/bin/www
+	cd examples/express && ./bin/www
+	
 	
 watch: build
 	# fswatch is available at https://github.com/emcrisostomo/fswatch

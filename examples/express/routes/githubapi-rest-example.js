@@ -9,9 +9,11 @@ module.exports	= router
 // require githubAPI.js
 var Github	= require('../../../src/index.js')
 
+//////////////////////////////////////////////////////////////////////////////////
+//		getReadme
+//////////////////////////////////////////////////////////////////////////////////
 router.get('/getReadme', function(request, response) {
 	var github	= new Github(request.user.accessToken, request.user.profile)
-
 	var repoName	= 'threex.project.sampleproject'
 
 	github.getReadme(repoName, function(data){
@@ -26,7 +28,6 @@ router.get('/getReadme', function(request, response) {
 //////////////////////////////////////////////////////////////////////////////////
 router.get('/forkRepository', function(request, response) {
 	if( request.isAuthenticated() === false ){
-		// response.redirect('/auth?backUrl='+request.originalUrl);
 		response.status(403).send('Forbidden. You MUST be authenticated!\n');
 		return
 	}
@@ -51,7 +52,6 @@ router.get('/forkRepository', function(request, response) {
 
 router.get('/deleteRepository', function(request, response) {
 	if( request.isAuthenticated() === false ){
-		// response.redirect('/auth?backUrl='+request.originalUrl);
 		response.status(403).send('Forbidden. You MUST be authenticated!\n');
 		return
 	}
@@ -99,7 +99,6 @@ router.get('/deleteRepository', function(request, response) {
 
 router.get('/createOrUpdateData', function(request, response) {
 	if( request.isAuthenticated() === false ){
-		// response.redirect('/auth?backUrl='+request.originalUrl);
 		response.status(403).send('Forbidden. You MUST be authenticated!\n');
 		return
 	}
@@ -144,7 +143,6 @@ router.get('/createOrUpdateData', function(request, response) {
 
 router.get('/deleteFile', function(request, response) {
 	if( request.isAuthenticated() === false ){
-		// response.redirect('/auth?backUrl='+request.originalUrl);
 		response.status(403).send('Forbidden. You MUST be authenticated!\n');
 		return
 	}
