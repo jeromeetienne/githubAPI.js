@@ -13,9 +13,27 @@ var Github	= require('../../../src/index.js')
 //		getReadme
 //////////////////////////////////////////////////////////////////////////////////
 router.get('/getReadme', function(request, response) {
-	var github	= new Github(request.user.accessToken, request.user.profile)
+	if( request.isAuthenticated() === false ){
+		response.status(403).send('Forbidden. You MUST be authenticated!\n');
+		return
+	}
+	
+	
+
+	// // get parameters
+	// var repoName	= request.query.repoName
+	// 
+	// //////////////////////////////////////////////////////////////////////////////////
+	// //		Error report
+	// //////////////////////////////////////////////////////////////////////////////////
+	// if( !repoName )	{
+	// 	response.status(400).send('Bad Request. Sorry, you MUST provide a repoName variable in query.\n');
+	// 	return
+	// }
+
 	var repoName	= 'threex.project.sampleproject'
 
+	var github	= new Github(request.user.accessToken, request.user.profile)
 	github.getReadme(repoName, function(data){
 		var content	= new Buffer(data.content, 'base64').toString()
 		response.contentType('text/plain');

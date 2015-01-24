@@ -14,7 +14,7 @@ var passport	= require('passport');
 
 router.get('/user', function(request, response) {
 	if( request.user ){
-		console.assert(request.user.profile.username === 'supereditor')
+		// console.assert(request.user.profile.username === 'supereditor')
 		response.json({
 			accessToken	: request.user.accessToken,
 			profile		: request.user.profile,
