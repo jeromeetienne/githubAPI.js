@@ -1,7 +1,7 @@
 ### TODO
 * DONE put ```/githubAPI``` in ```/src```
 * DONE put the whole express examples in ```examples/express``` and run it there
-* remove the key from the express plugin
+* remove the github authentication key from the express plugin
   * put that in a nother file and add this file in the .gitignore
   * add a .json.sample with only the nice comment
   * add the .json with real key in the .gitignore
@@ -28,7 +28,7 @@
 
 
 --
-### Publication DONE
+### DONE Publication
 * how to publish it in npm
   - npm install githubAPI.js
 - which name to give the library

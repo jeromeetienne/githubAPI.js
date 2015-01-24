@@ -19,7 +19,7 @@ initGithubAuth.init(app)
 
 
 // TODO this example is useless
-app.use('/api' , require('./routes/api'));
+app.use('/github-rest-example' , require('./routes/githubapi-rest-example'));
 
 
 ////////////////////////////////////////////////////////////////////////////////

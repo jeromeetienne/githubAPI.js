@@ -20,9 +20,20 @@ bower install githubapi.js
 
 or just include ```build/githubAPI.js``` in your projects the way you see fit :)
 
+## How to run the example
+
+Because github api requires authentications for many calls, an authentication
+server is provided as examples in ```/examples/express```
+
+To launch the server
+
+```
+cd examples/express
+make server
+```
 
 # Motivation
-this library is working well in my experience,
+This library is working well in my experience,
 They are other wrapper for github api, i dont claim mine is better :)
 The other libraries seemed good when i looked. be sure to check them out.
 
@@ -31,8 +42,10 @@ It was a core part of a project.
 So i had to really understand it, i could not rely
 on a 3rd party library. This is why i reimplemented it.
 
-# TODO
-* make use of the conditional requests, to handle rate limits
+# TODO - Possible Improvements
+* Use conditional requests for github api calls and thus reduce rate limits
+  * see [doc on conditional requests](https://developer.github.com/guides/getting-started/#conditional-requests)
+  * see [doc on rate limits](https://developer.github.com/v3/rate_limit/)
 
 # API 
 

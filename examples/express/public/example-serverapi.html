@@ -8,6 +8,7 @@
 	  color: #00B7FF;
 	}
 </style>
+<!-- TODO here include the build instead -->
 <script src='/js/githubAPI/github.main.js'></script>
 <script src='/js/githubAPI/github.extras.js'></script>
 <script src='/js/githubAPI/github.contents.js'></script>
@@ -15,6 +16,7 @@
 <script src='/js/githubAPI/github.repos.js'></script>
 <script src='/js/githubAPI/github.request.js'></script>
 <body>
+	<!-- user info head -->
 	<span>
 		<a href='/auth/logout?backUrl=/example-serverapi.html'>logout</a>
 	</span>
@@ -31,11 +33,11 @@
 		<a href='https://github.com/supereditor/threex.project.sampleproject'>on github</a>
 	</li>
 	<li>
-		<a href='/api/forkRepository?forkOwner=jeromeetienne&forkRepo=threex.basiclighting'>forkRepository</a>
+		<a href='/githubapi-rest-example/forkRepository?forkOwner=jeromeetienne&forkRepo=threex.basiclighting'>forkRepository</a>
 		- fork a repository threex.basiclighting
 	</li>
 	<li>
-		<a href='/api/deleteRepository?repoOwner=supereditor&repoName=threex.basiclighting'>deleteRepository</a>
+		<a href='/githubapi-rest-example/deleteRepository?repoOwner=supereditor&repoName=threex.basiclighting'>deleteRepository</a>
 		- delete a repository threex.basiclighting
 	</li>
 	<li>
@@ -197,7 +199,7 @@
 		var content	= 'a dummy file content '+Date()
 
 		// build the callUrl
-		var callUrl	=  '/api/createOrUpdateData'
+		var callUrl	=  '/githubapi-rest-example/createOrUpdateData'
 		callUrl		+= '?repoName='	+ encodeURIComponent(repoName)
 		callUrl		+= '&path='	+ encodeURIComponent(path)
 		callUrl		+= '&content='	+ encodeURIComponent(content)
@@ -220,7 +222,7 @@
 		var path	= 'scripts/playerController.js'
 
 		// build the callUrl
-		var callUrl	=  '/api/deleteFile'
+		var callUrl	=  '/githubapi-rest-example/deleteFile'
 		callUrl		+= '?repoName='	+ encodeURIComponent(repoName)
 		callUrl		+= '&path='	+ encodeURIComponent(path)
 
