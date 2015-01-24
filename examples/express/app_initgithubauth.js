@@ -7,11 +7,15 @@
  */
 
 
+// TODO this is very much like a /routes
+
 exports.init	= function(app){
 
 	//////////////////////////////////////////////////////////////////////////////////
-	//		Comment								//
+	//	app init
 	//////////////////////////////////////////////////////////////////////////////////
+
+// TODO put that init elsewhere
 
 	// init sessions
 	var expressSession      = require('express-session');
@@ -45,6 +49,7 @@ exports.init	= function(app){
 	// app.js
 	var GithubStrategy      = require('passport-github').Strategy;
 	passport.use(new GithubStrategy({
+// TODO put that options as parameters
 		clientID	: 'ea5914292ffcf9cab776',
 		clientSecret	: 'db108ec2e53a02bda9a7162548b10587986ca9c4',
 		callbackURL	: 'http://127.0.0.1:8000/auth/callback',

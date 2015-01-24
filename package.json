@@ -1,0 +1,31 @@
+{
+  "name": "githubapi.js",
+  "version": "0.9.0",
+  "description": "wrapper on top of github api v3",
+  "main": "build/githubAPI.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeromeetienne/githubAPI.js.git"
+  },
+  "keywords": [
+    "github",
+    "api",
+    "node.js",
+    "browser",
+    "authentication",
+    "express",
+    "passportjs"
+  ],
+  "author": "Jerome Etienne http://twitter.com/jerome_etienne",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeromeetienne/githubAPI.js/issues"
+  },
+  "homepage": "https://github.com/jeromeetienne/githubAPI.js"
+}
