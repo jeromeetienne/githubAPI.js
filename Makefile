@@ -14,6 +14,7 @@ build:
 	cat src/github.request.js	>> build/githubAPI.js
 	cat src/github.contents.js	>> build/githubAPI.js
 	cat src/github.fork.js		>> build/githubAPI.js
+	cat src/github.userblacklist.js	>> build/githubAPI.js
 
 minify: build
 	uglifyjs build/githubAPI.js -o build/githubAPI.min.js

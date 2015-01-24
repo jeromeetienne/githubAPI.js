@@ -11,21 +11,45 @@ var Github	= Github	|| require('./github.main.js')
 //		Plugin itself
 //////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * get data
+ * 
+ * @param  {String} path	- the api path
+ * @param  {Function} onLoad	- callback called when the result is loaded
+ */
 Github.prototype.get = function(path, onLoad){
 	var github	= this
 	github._requestRead('GET', path, onLoad)
 }
 
+/**
+ * post data
+ * 
+ * @param  {String} path	- the api path
+ * @param  {Function} onLoad	- callback called when the result is loaded
+ */
 Github.prototype.post = function(path, dataToPost, onLoad){
 	var github	= this
 	github._requestWrite('POST', path, dataToPost, onLoad)
 }
 
+/**
+ * put data
+ * 
+ * @param  {String} path	- the api path
+ * @param  {Function} onLoad	- callback called when the result is loaded
+ */
 Github.prototype.put = function(path, dataToPost, onLoad){
 	var github	= this
 	github._requestWrite('PUT', path, dataToPost, onLoad)
 }
 
+/**
+ * delete data
+ * 
+ * @param  {String} path	- the api path
+ * @param  {Function} onLoad	- callback called when the result is loaded
+ */
 Github.prototype.delete = function(path, dataToPost, onLoad){
 	var github	= this
 	github._requestWrite('DELETE', path, dataToPost, onLoad)

@@ -17,6 +17,8 @@ var app		= express();
 var initGithubAuth	= require('./app_initgithubauth')
 initGithubAuth.init(app)
 
+
+// TODO this example is useless
 app.use('/api' , require('./routes/api'));
 
 
