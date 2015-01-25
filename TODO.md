@@ -1,4 +1,7 @@
---
+TODO try the upload of asset 
+- example-upload-from-browser.html
+- then remove the key from the distro
+
 ### Examples
 * how to load the githubAPI.js from the browser
   * it requires servers for the authentication anyway

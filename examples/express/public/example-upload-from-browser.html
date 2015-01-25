@@ -1,55 +1,16 @@
-<style>
-	body {
-	  padding: 50px;
-	  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-	}
-
-	a {
-	  color: #00B7FF;
-	}
-</style>
-<!-- TODO here include the build instead -->
-<script src='/js/githubAPI/github.main.js'></script>
-<script src='/js/githubAPI/github.extras.js'></script>
-<script src='/js/githubAPI/github.contents.js'></script>
-<script src='/js/githubAPI/github.fork.js'></script>
-<script src='/js/githubAPI/github.repos.js'></script>
-<script src='/js/githubAPI/github.request.js'></script>
+<script src='/build/githubAPI.js'></script>
 <body>
 	<!-- user info head -->
 	<span>
-		<a href='/github-auth/logout?backUrl=/githubapi-rest-example.html'>logout</a>
+		<a href='/github-auth/logout?backUrl=/example-githubapi-rest.html'>logout</a>
 	</span>
 	<span>
-		<a href='/github-auth/login?backUrl=/githubapi-rest-example.html'>login</a>
+		<a href='/github-auth/login?backUrl=/example-githubapi-rest.html'>login</a>
 	</span>
 	<span id='username'></span>
 <hr/>
-
-<h2>links</h2>
-
-<ul>
-	<li>
-		<a href='https://github.com/supereditor/threex.project.sampleproject'>on github</a>
-	</li>
-	<li>
-		<a href='/githubapi-rest-example/forkRepository?forkOwner=jeromeetienne&forkRepo=threex.basiclighting'>forkRepository</a>
-		- fork a repository threex.basiclighting
-	</li>
-	<li>
-		<a href='/githubapi-rest-example/deleteRepository?repoOwner=supereditor&repoName=threex.basiclighting'>deleteRepository</a>
-		- delete a repository threex.basiclighting
-	</li>
-	<li>
-		<a href='javascript:void(0)' onclick='doCreateOrUpdateData()'>createOrUpdateData</a>
-		- createOrUpdateData scripts/playerController.js
-	</li>
-	<li>
-		<a href='javascript:void(0)' onclick='doDeleteFile()'>deleteFile</a>
-		- delete scripts/playerController.js
-	</li>
-</ul>
-<h1>File Upload</h1>
+<a href='/'>Root</a>
+<h1>File Upload from browser to github</h1>
 <style>
 #fileDropZone{
 	text-align	: center;
@@ -66,7 +27,6 @@
 <input type="file" multiple id="myInputFile" style='display:none;'>
 <button id='myUploadButton'>Upload</button>
 <div id="fileDropZone">or drop files here</div>
-
 
 <script>
 	// sanity check
@@ -188,50 +148,4 @@
 			document.querySelector('#username').innerText	= 'Not logged in'
 		}
 	})
-
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Comment								//
-	//////////////////////////////////////////////////////////////////////////////////
-	function doCreateOrUpdateData(){
-
-		var repoName	= 'threex.project.sampleproject'
-		var path	= 'scripts/playerController.js'
-		var content	= 'a dummy file content '+Date()
-
-		// build the callUrl
-		var callUrl	=  '/githubapi-rest-example/createOrUpdateData'
-		callUrl		+= '?repoName='	+ encodeURIComponent(repoName)
-		callUrl		+= '&path='	+ encodeURIComponent(path)
-		callUrl		+= '&content='	+ encodeURIComponent(content)
-
-		requestRead('GET', callUrl, function(json){
-			if( json.message ){
-				console.error('FAILLURE: ', json.message)
-			}else{
-				console.log('Success', json)
-			}
-		})	
-	}
-
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Comment								//
-	//////////////////////////////////////////////////////////////////////////////////
-	function doDeleteFile(){
-
-		var repoName	= 'threex.project.sampleproject'
-		var path	= 'scripts/playerController.js'
-
-		// build the callUrl
-		var callUrl	=  '/githubapi-rest-example/deleteFile'
-		callUrl		+= '?repoName='	+ encodeURIComponent(repoName)
-		callUrl		+= '&path='	+ encodeURIComponent(path)
-
-		requestRead('GET', callUrl, function(json){
-			if( json.message ){
-				console.error('FAILLURE: ', json.message)
-			}else{
-				console.log('Success', json)
-			}
-		})	
-	}
 </script>

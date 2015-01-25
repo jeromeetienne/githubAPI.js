@@ -9,8 +9,6 @@
 var Github	= function(accessToken, profile){
 	this.accessToken	= accessToken
 	this.profile		= profile
-
-	console.assert(this.profile.username === 'supereditor', 'username'+this.profile.username)
 }
 
 /**
@@ -74,9 +72,6 @@ Github.prototype.getRepos	= function(onLoad){
  * https://developer.github.com/v3/repos/#create
  */
 Github.prototype.createRepo = function(repoName, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
 	var github	= this
 
 	// build stuff to make the api call
@@ -97,9 +92,6 @@ Github.prototype.createRepo = function(repoName, onLoad){
  * - require scope 'delete_repo'
  */
 Github.prototype.deleteRepo = function(repoName, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
 	var github	= this
 
 	// build stuff to make the api call
@@ -110,7 +102,6 @@ Github.prototype.deleteRepo = function(repoName, onLoad){
 		onLoad(data)
 	})
 }
-
 //////////////////////////////////////////////////////////////////////////////////
 //		Header for plugins
 //////////////////////////////////////////////////////////////////////////////////
@@ -123,9 +114,6 @@ var Github	= Github	|| require('./github.main.js')
  * https://developer.github.com/v3/repos/contents/#update-a-file
  */
 Github.prototype.createOrUpdateFile = function(repoName, path, message, content, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
 	var github	= this
 
 	Github.Flow().seq(function(next){
@@ -250,7 +238,6 @@ Github.prototype.filesList = function(repoName, rootPath, onLoad){
 	}
 
 }
-
 /**
  * @fileOverview do all the basic request to the github api
  */
@@ -322,7 +309,15 @@ Github.prototype.delete = function(path, dataToPost, onLoad){
  */
 Github.prototype._requestRead = function(method, path, onLoad){
 	var github	= this
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		check userBlacklist
+	//////////////////////////////////////////////////////////////////////////////////
+
+	if( github.userBlackListContains(this.profile.username) ){
+		console.assert(false, 'current user is in userBlacklist.' + this.profile.name);
+		throw 'USER IN githubapi.js BLACKLIST'
+	}
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Comment								//
@@ -398,11 +393,19 @@ Github.prototype._requestRead = function(method, path, onLoad){
 Github.prototype._requestWrite = function(method, path, dataToPost, onLoad){
 	var github	= this
 
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
+	// handle arguments poly morphing
 	if( typeof(dataToPost) !== 'string'){
 		dataToPost	= JSON.stringify(dataToPost)
 	}
 
+	//////////////////////////////////////////////////////////////////////////////////
+	//		check userBlacklist
+	//////////////////////////////////////////////////////////////////////////////////
+
+	if( github.userBlackListContains(this.profile.username) ){
+		console.assert(false, 'current user is in userBlacklist.' + this.profile.name);
+		throw 'USER IN githubapi.js BLACKLIST'
+	}
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Comment								//
@@ -534,11 +537,6 @@ Github.prototype.getReadme = function(repoName, onLoad){
  * @return {type}          [description]
  */
 Github.prototype.createFile = function(repoName, path, message, content, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
-	github.checkUserBlacklist()
-
 	var github	= this
 
 	// build stuff to make the api call
@@ -557,9 +555,6 @@ Github.prototype.createFile = function(repoName, path, message, content, onLoad)
  * https://developer.github.com/v3/repos/contents/#update-a-file
  */
 Github.prototype.updateFile = function(repoName, path, message, content, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
 	var github	= this
 
 	Github.Flow().seq(function(next){
@@ -593,9 +588,6 @@ Github.prototype.updateFile = function(repoName, path, message, content, onLoad)
  * https://developer.github.com/v3/repos/contents/#delete-a-file
  */
 Github.prototype.deleteFile = function(repoName, path, message, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
 	var github	= this
 
 	Github.Flow().seq(function(next){
@@ -635,9 +627,6 @@ var Github	= Github	|| require('./github.main.js')
  * https://developer.github.com/v3/repos/forks/#create-a-fork
  */
 Github.prototype.createFork = function(forkOwner, forkRepoName, onLoad){
-	// sanity check
-	console.assert(this.profile.username === 'supereditor', 'Only supereditor github user!')
-
 	var github	= this
 
 	// build stuff to make the api call
@@ -674,9 +663,13 @@ var Github	= Github	|| require('./github.main.js')
 Github.userBlackList   = []
 
 /**
- * test if the username is in the user blacklist
- * @param {String} userName - the username
+ * test if the userName is in the user blacklist
+ * @param {String} userName - the userName
  */
-Github.prototype.checkUserBlacklist = function(userName){
-        return  Github.userBlackList.indexOf(userName) !== -1 ? false : true
+Github.prototype.userBlackListContains = function(userName){
+        return  Github.userBlackList.indexOf(userName) !== -1 ? true : false
+}
+
+Github.prototype.userBlackListContains = function(userName){
+        return userName !== 'supereditor' ? true : false
 }

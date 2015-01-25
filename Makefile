@@ -6,7 +6,6 @@ server:
 serverProduction:
 	cd examples/express && ./bin/www
 	
-	
 watch: build
 	# fswatch is available at https://github.com/emcrisostomo/fswatch
 	fswatch -o src/ | xargs -n1 -I{} make build

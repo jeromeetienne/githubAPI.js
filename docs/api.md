@@ -24,7 +24,7 @@
   * [github.updateFile()](#Github#updateFile)
   * [github.deleteFile()](#Github#deleteFile)
   * [github.createFork()](#Github#createFork)
-  * [github.checkUserBlacklist(userName)](#Github#checkUserBlacklist)
+  * [github.userBlackListContains(userName)](#Github#userBlackListContains)
  
 <a name="Github"></a>
 #class: Github
@@ -52,7 +52,7 @@
   * [github.updateFile()](#Github#updateFile)
   * [github.deleteFile()](#Github#deleteFile)
   * [github.createFork()](#Github#createFork)
-  * [github.checkUserBlacklist(userName)](#Github#checkUserBlacklist)
+  * [github.userBlackListContains(userName)](#Github#userBlackListContains)
 
 <a name="new_Github"></a>
 ##new Github(accessToken, profile)
@@ -216,11 +216,11 @@ https://developer.github.com/v3/repos/contents/#delete-a-file
 ##github.createFork()
 https://developer.github.com/v3/repos/forks/#create-a-fork
 
-<a name="Github#checkUserBlacklist"></a>
-##github.checkUserBlacklist(userName)
-test if the username is in the user blacklist
+<a name="Github#userBlackListContains"></a>
+##github.userBlackListContains(userName)
+test if the userName is in the user blacklist
 
 **Params**
 
-- userName `String` - the username  
+- userName `String` - the userName  
 
