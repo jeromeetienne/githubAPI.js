@@ -54,7 +54,6 @@ var isAuthenticated = function (request, response, next) {
 		return next();
 	response.redirect('/github-auth?backUrl='+request.originalUrl);
 }
-app.use('/useGithubAPI', isAuthenticated, require('./routes/useGithubAPI'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -28,6 +28,8 @@
 <button id='myUploadButton'>Upload</button>
 <div id="fileDropZone">or drop files here</div>
 
+
+<script src='requestUtils.js'></script>
 <script>
 	// sanity check
 	var hasFile	= (window.File && window.FileList && window.FileReader) ? true : false
@@ -111,27 +113,6 @@
 		}
 		console.log('reader', reader)
 		reader.readAsDataURL(file);	
-	}
-
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Comment								//
-	//////////////////////////////////////////////////////////////////////////////////
-	var requestRead	= function(method, callUrl, onLoad){
-		// log
-		console.log('SERVER', method, callUrl)
-		// start the request
-		var request	= new XMLHttpRequest();
-		request.onload	= function() {
-			// parse the response
-			var content	= request.responseText
-			var json	= JSON.parse(content)
-			// log
-			console.log('Response', json)
-			// notify called
-			onLoad(json)
-		};
-		request.open(method, callUrl, true);
-		request.send();	
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////
