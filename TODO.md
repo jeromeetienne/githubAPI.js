@@ -1,6 +1,9 @@
 TODO try the upload of asset 
-- example-upload-from-browser.html
 - then remove the key from the distro
+- then cleanup pass on code
+- then write a README.md
+
+- DONE example-upload-from-browser.html
 
 ### Examples
 * how to load the githubAPI.js from the browser
