@@ -38,15 +38,13 @@ var githubStrategyOpts	= {
 initGithubAuth.init(app, githubStrategyOpts)
 
 //////////////////////////////////////////////////////////////////////////////////
-//		Comments
+//		init githubapi-rest-example route
 //////////////////////////////////////////////////////////////////////////////////
 
-// TODO this example is useless
 app.use('/githubapi-rest-example' , require('./routes/githubapi-rest-example'));
 
-
 ////////////////////////////////////////////////////////////////////////////////
-//
+//		normal express stuff below - not relevant to this examples
 ////////////////////////////////////////////////////////////////////////////////     
 
 // view engine setup
@@ -64,19 +62,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// var routes = require('./routes/index');
-// app.use('/', routes);
-
-
-
-
-// As with any middleware it is quintessential to call next()
-// if the user is authenticated
-var isAuthenticated = function (request, response, next) {
-	if( request.isAuthenticated() )
-		return next();
-	response.redirect('/github-auth?backUrl='+request.originalUrl);
-}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
