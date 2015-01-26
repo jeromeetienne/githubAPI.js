@@ -17,22 +17,22 @@ router.get('/getReadme', function(request, response) {
 		response.status(403).send('Forbidden. You MUST be authenticated!\n');
 		return
 	}
+
+	// get parameters
+	var repoName	= request.query.repoName
 	
-	
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Error report
+	//////////////////////////////////////////////////////////////////////////////////
+	if( !repoName )	{
+		response.status(400).send('Bad Request. Sorry, you MUST provide a repoName variable in query.\n');
+		return
+	}
 
-	// // get parameters
-	// var repoName	= request.query.repoName
-	// 
-	// //////////////////////////////////////////////////////////////////////////////////
-	// //		Error report
-	// //////////////////////////////////////////////////////////////////////////////////
-	// if( !repoName )	{
-	// 	response.status(400).send('Bad Request. Sorry, you MUST provide a repoName variable in query.\n');
-	// 	return
-	// }
 
-	var repoName	= 'threex.project.sampleproject'
-
+	//////////////////////////////////////////////////////////////////////////////////
+	//		actually do the work
+	//////////////////////////////////////////////////////////////////////////////////	
 	var github	= new Github(request.user.accessToken, request.user.profile)
 	github.getReadme(repoName, function(data){
 		var content	= new Buffer(data.content, 'base64').toString()
