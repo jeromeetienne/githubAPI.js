@@ -7,16 +7,39 @@ var bodyParser	= require('body-parser');
 var app		= express();
 
 //////////////////////////////////////////////////////////////////////////////////
-//		Comment								//
+//		init github auth
 //////////////////////////////////////////////////////////////////////////////////
 
-// for experimentation
-// var cors = require('cors')
-// app.use(cors());
+// init sessions
+var expressSession      = require('express-session');
+app.use(expressSession({secret: 'mySecretKey'}));
 
+// parameters passed to JSON.stringify for response.json()
+app.set('json spaces', '\t');
+app.set('json replacer', null);
+
+// init github authentication
 var initGithubAuth	= require('./app_initgithubauth')
-initGithubAuth.init(app)
 
+// the options to use for passportjs GithubStrategy
+// - see details at https://github.com/jaredhanson/passport-github#configure-strategy
+var githubStrategyOpts	= {
+	// keys from github app - PUT YOUR OWN
+	// - see https://github.com/settings/applications and click 'register new application'
+	clientID	: require('./app_github_key').clientID,
+	clientSecret	: require('./app_github_key').clientSecret,
+	
+	// callback url for oauth
+	callbackURL	: 'http://127.0.0.1:8000/github-auth/callback',
+
+	// scope	: 'delete_repo, repo', 
+	scope		: 'repo', 
+}
+initGithubAuth.init(app, githubStrategyOpts)
+
+//////////////////////////////////////////////////////////////////////////////////
+//		Comments
+//////////////////////////////////////////////////////////////////////////////////
 
 // TODO this example is useless
 app.use('/githubapi-rest-example' , require('./routes/githubapi-rest-example'));

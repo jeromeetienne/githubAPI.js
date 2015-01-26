@@ -9,21 +9,7 @@
 
 // TODO this is very much like a /routes
 
-exports.init	= function(app){
-
-	//////////////////////////////////////////////////////////////////////////////////
-	//	app init
-	//////////////////////////////////////////////////////////////////////////////////
-
-// TODO put that init elsewhere
-
-	// init sessions
-	var expressSession      = require('express-session');
-	app.use(expressSession({secret: 'mySecretKey'}));
-
-	// parameters passed to JSON.stringify for response.json()
-	app.set('json spaces', '\t');
-	app.set('json replacer', null);
+exports.init	= function(app, githubStrategyOpts){
 
 	////////////////////////////////////////////////////////////////////////////////
 	//	init passport
@@ -48,15 +34,7 @@ exports.init	= function(app){
 
 	// app.js
 	var GithubStrategy      = require('passport-github').Strategy;
-	passport.use(new GithubStrategy({
-// TODO put that options as parameters
-		clientID	: 'ea5914292ffcf9cab776',
-		clientSecret	: 'db108ec2e53a02bda9a7162548b10587986ca9c4',
-		callbackURL	: 'http://127.0.0.1:8000/github-auth/callback',
-		// scope		: 'gist', 
-		scope		: 'delete_repo, repo', 
-		// scope		: 'repo', 
-	}, function(accessToken, refreshToken, profile, done){
+	passport.use(new GithubStrategy(githubStrategyOpts, function(accessToken, refreshToken, profile, done){
 		// console.log('profile', profile)
 		done(null, {
 			accessToken	: accessToken,
