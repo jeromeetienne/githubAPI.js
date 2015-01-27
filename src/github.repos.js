@@ -7,7 +7,8 @@ var Github	= Github	|| require('./github.main.js')
 //		Plugin itself
 //////////////////////////////////////////////////////////////////////////////////
 /**
- * get all repositories
+ * get all repositories for this user
+ * 
  * @param  {function} onLoad - callback called on load
  */
 Github.prototype.getRepos	= function(onLoad){
@@ -18,7 +19,8 @@ Github.prototype.getRepos	= function(onLoad){
 
 
 /**
- * https://developer.github.com/v3/repos/#create
+ * Create a repository
+ * - see details at https://developer.github.com/v3/repos/#create
  */
 Github.prototype.createRepo = function(repoName, onLoad){
 	var github	= this

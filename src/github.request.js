@@ -1,5 +1,6 @@
 /**
  * @fileOverview do all the basic request to the github api
+ * - it supports requests from node.js and from browser.js
  */
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -12,7 +13,7 @@ var Github	= Github	|| require('./github.main.js')
 //////////////////////////////////////////////////////////////////////////////////
 
 /**
- * get data
+ * get request rest
  * 
  * @param  {String} path	- the api path
  * @param  {Function} onLoad	- callback called when the result is loaded
@@ -23,7 +24,7 @@ Github.prototype.get = function(path, onLoad){
 }
 
 /**
- * post data
+ * post request rest
  * 
  * @param  {String} path	- the api path
  * @param  {Function} onLoad	- callback called when the result is loaded
@@ -34,7 +35,7 @@ Github.prototype.post = function(path, dataToPost, onLoad){
 }
 
 /**
- * put data
+ * put request rest
  * 
  * @param  {String} path	- the api path
  * @param  {Function} onLoad	- callback called when the result is loaded
@@ -45,7 +46,7 @@ Github.prototype.put = function(path, dataToPost, onLoad){
 }
 
 /**
- * delete data
+ * delete request rest
  * 
  * @param  {String} path	- the api path
  * @param  {Function} onLoad	- callback called when the result is loaded
@@ -63,6 +64,7 @@ Github.prototype.delete = function(path, dataToPost, onLoad){
 /**
  * Perform a READ on github API
  * 
+ * @private
  * @param  {String} method	- "POST" "PUT" "DELETE" this kindof thing
  * @param  {String} path	- the api path
  * @param  {Function} onLoad	- callback called when the result is loaded
@@ -145,6 +147,7 @@ Github.prototype._requestRead = function(method, path, onLoad){
 /**
  * Perform a WRITE on github API
  * 
+ * @private
  * @param  {String} 		method		- "POST" "PUT" "DELETE" this kindof thing
  * @param  {String} 		path		- the api path
  * @param  {Object|String}	dataToPost	- the data to send along

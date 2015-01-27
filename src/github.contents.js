@@ -51,12 +51,11 @@ Github.prototype.getReadme = function(repoName, onLoad){
 /**
  * https://developer.github.com/v3/repos/contents/#create-a-file
  * 
- * @param  {type} repoName [description]
- * @param  {type} path     [description]
- * @param  {type} message  [description]
- * @param  {type} content  [description]
- * @param  {type} onLoad   [description]
- * @return {type}          [description]
+ * @param  {String} repoName - the name of the repository
+ * @param  {String} path     - the path of the file
+ * @param  {String} message  - the commit message
+ * @param  {String} content  - the file content
+ * @param  {function} onLoad - the callback to notify on completion
  */
 Github.prototype.createFile = function(repoName, path, message, content, onLoad){
 	var github	= this
@@ -74,7 +73,9 @@ Github.prototype.createFile = function(repoName, path, message, content, onLoad)
 };
 
 /**
- * https://developer.github.com/v3/repos/contents/#update-a-file
+ * Update file 
+ * 
+ * - see details at https://developer.github.com/v3/repos/contents/#update-a-file
  */
 Github.prototype.updateFile = function(repoName, path, message, content, onLoad){
 	var github	= this
@@ -107,7 +108,9 @@ Github.prototype.updateFile = function(repoName, path, message, content, onLoad)
 
 
 /**
- * https://developer.github.com/v3/repos/contents/#delete-a-file
+ * Delete a file 
+ * 
+ * - see details on https://developer.github.com/v3/repos/contents/#delete-a-file
  */
 Github.prototype.deleteFile = function(repoName, path, message, onLoad){
 	var github	= this

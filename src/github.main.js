@@ -24,6 +24,7 @@ if( typeof(window) === 'undefined' )	module.exports	= Github;
 
 /**
  * Build a flow to handle asynchronous data flow
+ * 
  * gowiththeflow.js - https://github.com/jeromeetienne/gowiththeflow.js
  */
 Github.Flow	= function(){
