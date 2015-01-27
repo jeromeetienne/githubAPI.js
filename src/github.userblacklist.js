@@ -17,18 +17,33 @@ var Github	= Github	|| require('./github.main.js')
 /**
  * user blacklist
  * 
- * @type {String[]}
+ * @type {RegExp[]}
  */
-Github.userBlackList   = []
+Github.userBlackListRegExps     = []
 
 /**
- * test if the userName is in the user blacklist
- * @param {String} userName - the userName
+ * user blacklist
+ * 
+ * @type {RegExp[]}
  */
-Github.prototype.userBlackListContains = function(userName){
-        return  Github.userBlackList.indexOf(userName) !== -1 ? true : false
-}
+Github.userWhiteListRegExps     = [];
 
-Github.prototype.userBlackListContains = function(userName){
-        return userName !== 'supereditor' ? true : false
+
+/**
+ * test if the user is blacklisted
+ * @param {String} userName - the username to test
+ */
+Github.userIsBlackListed = function(userName){
+        // honor white list
+        for(var i = 0; i < Github.userWhiteListRegExps.length; i++){
+                var regExp      = Github.userWhiteListRegExps[i]
+                if( userName.match(regExp) !== null )   return false
+        }
+        // honor black list
+        for(var i = 0; i < Github.userBlackListRegExps.length; i++){
+                var regExp      = Github.userBlackListRegExps[i]
+                if( userName.match(regExp) !== null )   return true
+        }
+        // return false
+        return false
 }

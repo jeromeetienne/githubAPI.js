@@ -42,13 +42,29 @@ router.get('/callback',
 		failureRedirect	: '/github-auth/error'
 	}),
 	function(request, response){
-		// honor ?backUrl=
-		console.assert( request.session.backUrl )
-		response.redirect(request.session.backUrl)
+		// backup backUrl and reset it
+		var backUrl	= request.session.backUrl
 		request.session.backUrl	= ''
 
-		// redirect when loging
-		// response.redirect('/example-serverapi.html')
+		// get username
+		// - here it is assumed to be authenticated, else it goes in /error
+		console.assert( request.isAuthenticated() );
+		var userName	= request.user.profile.username
+
+		// logout the user if it isBlackListed
+		var Github		= require('../../../src/index.js')
+		var isBlackListed	= Github.userIsBlackListed(userName)
+		if( isBlackListed ){
+			// logout the user 
+			request.logOut()
+			// return an error
+			response.status(403).send('Forbidden. User "'+userName+'" is blacklisted and cant login here!\n');
+			return
+		}
+
+		// honor ?backUrl=
+		console.assert( backUrl )
+		response.redirect(backUrl)
 	}
 );
 

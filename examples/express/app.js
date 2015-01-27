@@ -18,6 +18,11 @@ app.use(expressSession({secret: 'mySecretKey'}));
 app.set('json spaces', '\t');
 app.set('json replacer', null);
 
+// // initialise the blacklist
+// var Github	= require('../../src/index.js')
+// Github.userWhiteListRegExps.push(/^supereditor$/)
+// Github.userBlackListRegExps.push(/./)
+
 // the options to use for passportjs GithubStrategy
 // - see details at https://github.com/jaredhanson/passport-github#configure-strategy
 var githubStrategyOpts	= {
@@ -25,7 +30,7 @@ var githubStrategyOpts	= {
 	// - see https://github.com/settings/applications and click 'register new application'
 	clientID	: require('./app_github_key').clientID,
 	clientSecret	: require('./app_github_key').clientSecret,
-	
+
 	// callback url for oauth
 	callbackURL	: 'http://127.0.0.1:8000/github-auth/callback',
 

@@ -76,7 +76,7 @@ Github.prototype._requestRead = function(method, path, onLoad){
 	//		check userBlacklist
 	//////////////////////////////////////////////////////////////////////////////////
 
-	if( github.userBlackListContains(this.profile.username) ){
+	if( Github.userIsBlackListed(this.profile.username) ){
 		console.assert(false, 'current user is in userBlacklist :' + this.profile.username);
 		throw 'USER IN githubapi.js BLACKLIST'
 	}
@@ -165,7 +165,7 @@ Github.prototype._requestWrite = function(method, path, dataToPost, onLoad){
 	//		check userBlacklist
 	//////////////////////////////////////////////////////////////////////////////////
 
-	if( github.userBlackListContains(this.profile.username) ){
+	if( Github.userIsBlackListed(this.profile.username) ){
 		console.assert(false, 'current user is in userBlacklist.' + this.profile.name);
 		throw 'USER IN githubapi.js BLACKLIST'
 	}
