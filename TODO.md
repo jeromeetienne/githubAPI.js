@@ -1,9 +1,22 @@
 TODO try the upload of asset 
-- then remove the key from the distro
+- DONE then remove the key from the distro
 - then cleanup pass on code
 - then write a README.md
-
+  - what are the examples
+    - why do you need to look at tehm
+  - how to run the exmaple
+  - how to get your own keys
+  - describe what is in this package
 - DONE example-upload-from-browser.html
+
+
+### Migration back
+- then port it back to studio3 server
+  - how to do that.
+  - publish githubapi.js as npm package
+  - npm install in the server/node_modules
+  - include it in apps.js from there
+
 
 ### Examples
 * how to load the githubAPI.js from the browser
