@@ -1,6 +1,6 @@
 {
   "name": "githubapi.js",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "wrapper on top of github api v3",
   "main": "build/githubAPI.js",
   "directories": {
