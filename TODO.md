@@ -7,8 +7,10 @@
   - how to run the exmaple
   - how to get your own keys
   - describe what is in this package
+  
 - reread the NOTES.md and TODO.md and clean it up
   - remove the file when it is empty
+
 - there is a weird hardcoded protection for me
   - how to support it without clogging the library code
   - what about an event to check ?
@@ -17,6 +19,7 @@
     - github.userblacklist.js
     - github.checkUserBlacklist(username) return true/false insync
   - in studio3, this function will only accept supereditor
+  - it is mainly for me as a protection against me being silly
   
   - the api isnt nice
   - currently i need to 

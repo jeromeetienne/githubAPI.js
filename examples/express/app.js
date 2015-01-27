@@ -18,9 +18,6 @@ app.use(expressSession({secret: 'mySecretKey'}));
 app.set('json spaces', '\t');
 app.set('json replacer', null);
 
-// init github authentication
-var initGithubAuth	= require('./app_initgithubauth')
-
 // the options to use for passportjs GithubStrategy
 // - see details at https://github.com/jaredhanson/passport-github#configure-strategy
 var githubStrategyOpts	= {
@@ -35,6 +32,10 @@ var githubStrategyOpts	= {
 	// scope	: 'delete_repo, repo', 
 	scope		: 'repo', 
 }
+
+// init github authentication
+var initGithubAuth	= require('./app_initgithubauth')
+// actuall init github authentication
 initGithubAuth.init(app, githubStrategyOpts)
 
 //////////////////////////////////////////////////////////////////////////////////
