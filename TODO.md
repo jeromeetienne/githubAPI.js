@@ -7,6 +7,10 @@ TODO try the upload of asset
   - how to run the exmaple
   - how to get your own keys
   - describe what is in this package
+- reread the NOTES.md and TODO.md and clean it up
+  - remove the file when it is empty
+  
+  
 - DONE example-upload-from-browser.html
 
 

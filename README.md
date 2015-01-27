@@ -28,26 +28,36 @@ or just include ```build/githubAPI.js``` in your projects the way you see fit :)
 ## Show, Don't Tell
 
 Let's see how to use githubapi.js. There are examples for you to look at and see how to use it.
-The examples shows usage from the browser and from node.js.
+The examples shows usage from the browser and from node.js. You can 
+find them in [/examples/express/public](https://github.com/jeromeetienne/githubAPI.js/blob/master/examples/express/public).
 
-- [use github api thru a rest](https://github.com/jeromeetienne/githubAPI.js/blob/master/examples/express/public/example-githubapi-rest.html)
-        It shows how to login/logout with the github authentication.
-        A logged in user will give profile information and access_token.
-        The access_token is given to github to authenticate  the user.
-        It can be used from the browser or from node.js.
-- [upload from browser](https://github.com/jeromeetienne/githubAPI.js/blob/master/examples/express/public/example-github-auth-standalone.html)
-        It upload files from the browser directly to gihub.
-        better for your server
 - [using github authentication](https://github.com/jeromeetienne/githubAPI.js/blob/master/examples/express/public/example-upload-from-browser.html)
-	It shows how to login/logout with the github authentication.
-        A logged in user will give profile information and access_token.
-        The access_token is given to github to authenticate  the user.
-        It can be used from the browser or from node.js.
-
+It shows how to login/logout with the github authentication.
+A logged in user will give profile information and access_token.
+The access_token is given to github to authenticate  the user.
+It can be used from the browser or from node.js.
+- [use github api thru a rest](https://github.com/jeromeetienne/githubAPI.js/blob/master/examples/express/public/example-githubapi-rest.html)
+There is example express routes called
+[githubapi-rest-examples](https://github.com/jeromeetienne/githubAPI.js/blob/master/examples/express/public/example-upload-from-browser.html). it provides a example of REST API on top of githubapi.js.
+This is a good place to see how to use githubapi.js from node.js.
+- [upload from browser](https://github.com/jeromeetienne/githubAPI.js/blob/master/examples/express/public/example-github-auth-standalone.html)
+It upload files from the browser directly to gihub.
+It is possible to upload from node.ns too, but uploading from the user's browser, save
+bandwidth on servers.
+It is a good place to see how to use githubapi.js from browser.
+- [index.html](https://github.com/jeromeetienne/githubAPI.js/blob/master/examples/public/index.html)
+It is just the examples homepage.
+once you launch the server, goto
+[http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+to see it.
+- [app.js](https://github.com/jeromeetienne/githubAPI.js/blob/master/examples/express/app.js) is the usual
+application for express server. It is a good place to see how to initialize the github authentication 
+in your own server.
 
 Now, let's run the server. A server is required because github api requires authentications for many calls.
 An authentication server is provided as examples in ```/examples/express```, 
-coded with [express](http://expressjs.com/) as you may have guessed.
+coded with [express](http://expressjs.com/) as you may have guessed. 
+It run the authentication server and serve ```/examples/express/public``` as static.
 
 First you need to authenticate yourself on github.
 It will give permissions to example application.
@@ -62,8 +72,9 @@ At the moment, it is in user -> setting -> applications -> register new applicat
 
 Get the clientID and clientSecret you see on top.
 
-Then copy ```examples/expess/app_github_keys.sample.js``` into ```examples/expess/app_github_keys.js```
-and just replace the values by your own clientID/clientSecret.
+Then setup those value into your examples server. First, copy ```examples/expess/app_github_keys.sample.js``` into ```examples/expess/app_github_keys.js```
+Then replace the values by your own clientID/clientSecret.
+And you are done.
 
 ## How to run the example
 
@@ -75,7 +86,12 @@ cd examples/express
 make server
 ```
 
+## Makefile
 
+- ```make build``` - build the library
+- ```make minify``` - build the library and minify it
+- ```make server``` - launch dev server
+- ```make jsdoc``` - generate docs/api.md from [jsdoc](http://usejsdoc.org) in ```/src```
 
 # Motivation
 This library is working well in my experience,
@@ -91,8 +107,16 @@ on a 3rd party library. This is why i reimplemented it.
 * Use conditional requests for github api calls and thus reduce rate limits
   * see [doc on conditional requests](https://developer.github.com/guides/getting-started/#conditional-requests)
   * see [doc on rate limits](https://developer.github.com/v3/rate_limit/)
+* githubapi.js doesn't implement all [github api v3 calls](https://developer.github.com/v3), far from it.
+  - But it does implement the call i need now.
+  - Maybe implement the whole API later.
 
-
+## Folders
+- ```/build``` - the built source, the one you need as a user of the library
+- ```/src``` - the source of the library itself, where you go to develop this api
+- ```/examples``` - the examples you can run to learn how to use this library
+  - ```/examples/express``` - the express server needed to run the examples
+ 
 # API 
 
 Here is the api documentation. 
