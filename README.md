@@ -5,19 +5,29 @@ githubApi.js
 access [github api](https://developer.github.com/v3/) in javascript.
 It can be used from node.js or browser.
 The library code is available at [/build/githubAPI.js](https://raw.githubusercontent.com/jeromeetienne/githubAPI.js/master/build/githubAPI.js)
-
-
 There is a [fully documented API](https://github.com/jeromeetienne/githubAPI.js/blob/master/docs/api.md)
 also available at the end of this README.md.
 
+## Install it
+
+To install for node.js, just do
+
+```
+npm install githubapi.js
+```
+
+To install for browser, just do
+
+```
+bower install githubapi.js
+```
+
+or just include ```build/githubAPI.js``` in your projects the way you see fit :)
+
+
 ## Show, Don't Tell
 
-Let's see how to use githubapi.js
-
-Because github api requires authentications for many calls, an authentication
-server is provided as examples in ```/examples/express```.
-As you may have guessed, it is a in [express](http://expressjs.com/)
-
+Let's see how to use githubapi.js. There are examples for you to look at and see how to use it.
 The examples shows usage from the browser and from node.js.
 
 - [use github api thru a rest](https://github.com/jeromeetienne/githubAPI.js/blob/master/examples/express/public/example-githubapi-rest.html)
@@ -34,6 +44,10 @@ The examples shows usage from the browser and from node.js.
         The access_token is given to github to authenticate  the user.
         It can be used from the browser or from node.js.
 
+
+Now, let's run the server. A server is required because github api requires authentications for many calls.
+An authentication server is provided as examples in ```/examples/express```, 
+coded with [express](http://expressjs.com/) as you may have guessed.
 
 First you need to authenticate yourself on github.
 It will give permissions to example application.
@@ -53,32 +67,14 @@ and just replace the values by your own clientID/clientSecret.
 
 ## How to run the example
 
-Because github api requires authentications for many calls, an authentication
-server is provided as examples in ```/examples/express```
-
-To launch the server
+Once you got the keys setup, launch the server this way and go to 
+[http://127.0.0.1:8000/](http://127.0.0.1:8000/) with your browser
 
 ```
 cd examples/express
 make server
 ```
 
-
-## Install it
-
-To install for node.js, just do
-
-```
-npm install githubapi.js
-```
-
-To install for browser, just do
-
-```
-bower install githubapi.js
-```
-
-or just include ```build/githubAPI.js``` in your projects the way you see fit :)
 
 
 # Motivation
