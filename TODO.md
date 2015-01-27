@@ -1,15 +1,11 @@
-### TODO
-- TODO try the upload of asset 
-- then cleanup pass on code
-- then write a README.md
-  - what are the examples
-    - why do you need to look at tehm
-  - how to run the exmaple
-  - how to get your own keys
-  - describe what is in this package
+### Make the blacklist stuff in the editor
+
+- there is now a full acl implementation in github.user.blacklist.js
+- from where to call that
+  - i dont want to be able to perform any operation
+  - i dont want to be able to even authorize myself
   
-- reread the NOTES.md and TODO.md and clean it up
-  - remove the file when it is empty
+
 
 - there is a weird hardcoded protection for me
   - how to support it without clogging the library code
@@ -29,6 +25,22 @@
     - none other is allowed
     - how to make a real thing out of it
     
+
+
+
+
+### TODO
+- TODO try the upload of asset 
+- then cleanup pass on code
+- then write a README.md
+  - what are the examples
+    - why do you need to look at tehm
+  - how to run the exmaple
+  - how to get your own keys
+  - describe what is in this package
+  
+- reread the NOTES.md and TODO.md and clean it up
+  - remove the file when it is empty
 
 ### Migration back
 - it should be rather simple, as it is the same as the examples
