@@ -114,7 +114,7 @@ Github.prototype._requestRead = function(method, path, onLoad){
 	var options	= {
 		host	: "api.github.com",
 		headers	: {
-			'User-Agent': 'threex.gameeditor UserAgent',
+			'User-Agent': 'githubAPI.js UserAgent',
 		},
 		path	: path + '?access_token=' + github.accessToken,
 		method	: method,
@@ -205,7 +205,7 @@ Github.prototype._requestWrite = function(method, path, dataToPost, onLoad){
 	var options	= {
 		host	: "api.github.com",
 		headers	: {
-			'User-Agent'	: 'threex.gameeditor UserAgent',
+			'User-Agent'	: 'githubAPI.js UserAgent',
 			'Content-Type'	: 'application/json',
 			'Content-Length': dataToPost.length,
 		},

@@ -16,7 +16,7 @@
 
 # Process
 * make a new server, with html pages to test feature
-    - Those will be examples when porting to threex.gameeditor
+    - Those will be examples when porting to space3
 * make the same functions as current server in a new server
     - /api/forkRepository(sourceRepo)
     - /api/createOrUpdateFile
@@ -42,7 +42,7 @@
 * it needs to be able to uploadAsset
 * it needs to be able to saveScript
 
-## How to include authentication in threex.gameeditor
+## How to include authentication in space3
 * support anonymous user
 * when doing an action which require authentication
 * check if the user is authenticated
@@ -63,7 +63,7 @@
 * createOrUpdateFile
 * createOrUpdateData
 
-# Use Case of THREEx.GameEditor
+# Use Case of space3
 
 * create project
     - is that real. couldn't i do only fork ?
@@ -77,7 +77,7 @@
 # How to merge it with the project
 * split a new version of the server
     - v06
-* add github authentication to threex.gameeditor server
+* add github authentication to space3 server
 * can i support both ?
     - thus i dont have to switch it all at the same time
     - is that needed ?

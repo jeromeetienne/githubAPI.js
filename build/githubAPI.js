@@ -24,6 +24,7 @@ if( typeof(window) === 'undefined' )	module.exports	= Github;
 
 /**
  * Build a flow to handle asynchronous data flow
+ * 
  * gowiththeflow.js - https://github.com/jeromeetienne/gowiththeflow.js
  */
 Github.Flow	= function(){
@@ -58,7 +59,8 @@ var Github	= Github	|| require('./github.main.js')
 //		Plugin itself
 //////////////////////////////////////////////////////////////////////////////////
 /**
- * get all repositories
+ * get all repositories for this user
+ * 
  * @param  {function} onLoad - callback called on load
  */
 Github.prototype.getRepos	= function(onLoad){
@@ -69,7 +71,8 @@ Github.prototype.getRepos	= function(onLoad){
 
 
 /**
- * https://developer.github.com/v3/repos/#create
+ * Create a repository
+ * - see details at https://developer.github.com/v3/repos/#create
  */
 Github.prototype.createRepo = function(repoName, onLoad){
 	var github	= this
@@ -102,6 +105,11 @@ Github.prototype.deleteRepo = function(repoName, onLoad){
 		onLoad(data)
 	})
 }
+/**
+ * @fileOverview - some extras helper functions on top of the core API
+ */
+
+
 //////////////////////////////////////////////////////////////////////////////////
 //		Header for plugins
 //////////////////////////////////////////////////////////////////////////////////
@@ -150,6 +158,7 @@ Github.prototype.createOrUpdateFile = function(repoName, path, message, content,
 		if( inNode ){
 			return new Buffer(content).toString('base64')
 		}else{
+// TODO remove this obsolete code
 			// // from http://scotch.io/quick-tips/js/how-to-encode-and-decode-strings-with-base64-in-javascript
 			// // Create Base64 Object
 			// var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
@@ -240,6 +249,7 @@ Github.prototype.filesList = function(repoName, rootPath, onLoad){
 }
 /**
  * @fileOverview do all the basic request to the github api
+ * - it supports requests from node.js and from browser.js
  */
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -252,7 +262,7 @@ var Github	= Github	|| require('./github.main.js')
 //////////////////////////////////////////////////////////////////////////////////
 
 /**
- * get data
+ * get request rest
  * 
  * @param  {String} path	- the api path
  * @param  {Function} onLoad	- callback called when the result is loaded
@@ -263,7 +273,7 @@ Github.prototype.get = function(path, onLoad){
 }
 
 /**
- * post data
+ * post request rest
  * 
  * @param  {String} path	- the api path
  * @param  {Function} onLoad	- callback called when the result is loaded
@@ -274,7 +284,7 @@ Github.prototype.post = function(path, dataToPost, onLoad){
 }
 
 /**
- * put data
+ * put request rest
  * 
  * @param  {String} path	- the api path
  * @param  {Function} onLoad	- callback called when the result is loaded
@@ -285,7 +295,7 @@ Github.prototype.put = function(path, dataToPost, onLoad){
 }
 
 /**
- * delete data
+ * delete request rest
  * 
  * @param  {String} path	- the api path
  * @param  {Function} onLoad	- callback called when the result is loaded
@@ -303,6 +313,7 @@ Github.prototype.delete = function(path, dataToPost, onLoad){
 /**
  * Perform a READ on github API
  * 
+ * @private
  * @param  {String} method	- "POST" "PUT" "DELETE" this kindof thing
  * @param  {String} path	- the api path
  * @param  {Function} onLoad	- callback called when the result is loaded
@@ -314,8 +325,8 @@ Github.prototype._requestRead = function(method, path, onLoad){
 	//		check userBlacklist
 	//////////////////////////////////////////////////////////////////////////////////
 
-	if( github.userBlackListContains(this.profile.username) ){
-		console.assert(false, 'current user is in userBlacklist.' + this.profile.name);
+	if( Github.userIsBlackListed(this.profile.username) ){
+		console.assert(false, 'current user is in userBlacklist :' + this.profile.username);
 		throw 'USER IN githubapi.js BLACKLIST'
 	}
 
@@ -352,7 +363,7 @@ Github.prototype._requestRead = function(method, path, onLoad){
 	var options	= {
 		host	: "api.github.com",
 		headers	: {
-			'User-Agent': 'threex.gameeditor UserAgent',
+			'User-Agent': 'githubAPI.js UserAgent',
 		},
 		path	: path + '?access_token=' + github.accessToken,
 		method	: method,
@@ -385,6 +396,7 @@ Github.prototype._requestRead = function(method, path, onLoad){
 /**
  * Perform a WRITE on github API
  * 
+ * @private
  * @param  {String} 		method		- "POST" "PUT" "DELETE" this kindof thing
  * @param  {String} 		path		- the api path
  * @param  {Object|String}	dataToPost	- the data to send along
@@ -402,13 +414,13 @@ Github.prototype._requestWrite = function(method, path, dataToPost, onLoad){
 	//		check userBlacklist
 	//////////////////////////////////////////////////////////////////////////////////
 
-	if( github.userBlackListContains(this.profile.username) ){
+	if( Github.userIsBlackListed(this.profile.username) ){
 		console.assert(false, 'current user is in userBlacklist.' + this.profile.name);
 		throw 'USER IN githubapi.js BLACKLIST'
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////
-	//		Comment								//
+	//		handle the node.js case
 	//////////////////////////////////////////////////////////////////////////////////
 	var inNode	= typeof(window) === 'undefined' ? true : false;
 	if( inNode === false ){
@@ -435,14 +447,14 @@ Github.prototype._requestWrite = function(method, path, dataToPost, onLoad){
 		return
 	}
 	//////////////////////////////////////////////////////////////////////////////////
-	//		Comment								//
+	//		handle the browser case
 	//////////////////////////////////////////////////////////////////////////////////
 
 	// request options
 	var options	= {
 		host	: "api.github.com",
 		headers	: {
-			'User-Agent'	: 'threex.gameeditor UserAgent',
+			'User-Agent'	: 'githubAPI.js UserAgent',
 			'Content-Type'	: 'application/json',
 			'Content-Length': dataToPost.length,
 		},
@@ -529,12 +541,11 @@ Github.prototype.getReadme = function(repoName, onLoad){
 /**
  * https://developer.github.com/v3/repos/contents/#create-a-file
  * 
- * @param  {type} repoName [description]
- * @param  {type} path     [description]
- * @param  {type} message  [description]
- * @param  {type} content  [description]
- * @param  {type} onLoad   [description]
- * @return {type}          [description]
+ * @param  {String} repoName - the name of the repository
+ * @param  {String} path     - the path of the file
+ * @param  {String} message  - the commit message
+ * @param  {String} content  - the file content
+ * @param  {function} onLoad - the callback to notify on completion
  */
 Github.prototype.createFile = function(repoName, path, message, content, onLoad){
 	var github	= this
@@ -552,7 +563,9 @@ Github.prototype.createFile = function(repoName, path, message, content, onLoad)
 };
 
 /**
- * https://developer.github.com/v3/repos/contents/#update-a-file
+ * Update file 
+ * 
+ * - see details at https://developer.github.com/v3/repos/contents/#update-a-file
  */
 Github.prototype.updateFile = function(repoName, path, message, content, onLoad){
 	var github	= this
@@ -585,7 +598,9 @@ Github.prototype.updateFile = function(repoName, path, message, content, onLoad)
 
 
 /**
- * https://developer.github.com/v3/repos/contents/#delete-a-file
+ * Delete a file 
+ * 
+ * - see details on https://developer.github.com/v3/repos/contents/#delete-a-file
  */
 Github.prototype.deleteFile = function(repoName, path, message, onLoad){
 	var github	= this
@@ -658,18 +673,33 @@ var Github	= Github	|| require('./github.main.js')
 /**
  * user blacklist
  * 
- * @type {String[]}
+ * @type {RegExp[]}
  */
-Github.userBlackList   = []
+Github.userBlackListRegExps     = []
 
 /**
- * test if the userName is in the user blacklist
- * @param {String} userName - the userName
+ * user blacklist
+ * 
+ * @type {RegExp[]}
  */
-Github.prototype.userBlackListContains = function(userName){
-        return  Github.userBlackList.indexOf(userName) !== -1 ? true : false
-}
+Github.userWhiteListRegExps     = [];
 
-Github.prototype.userBlackListContains = function(userName){
-        return userName !== 'supereditor' ? true : false
+
+/**
+ * test if the user is blacklisted
+ * @param {String} userName - the username to test
+ */
+Github.userIsBlackListed = function(userName){
+        // honor white list
+        for(var i = 0; i < Github.userWhiteListRegExps.length; i++){
+                var regExp      = Github.userWhiteListRegExps[i]
+                if( userName.match(regExp) !== null )   return false
+        }
+        // honor black list
+        for(var i = 0; i < Github.userBlackListRegExps.length; i++){
+                var regExp      = Github.userBlackListRegExps[i]
+                if( userName.match(regExp) !== null )   return true
+        }
+        // return false
+        return false
 }
